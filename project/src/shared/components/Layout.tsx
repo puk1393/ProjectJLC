@@ -19,8 +19,7 @@ export function Layout({ children }: LayoutProps) {
       >
         <h1 style={{ margin: 0, fontSize: "20px", color:"white" }}>Dev Board</h1>
         <nav style={{ display: "flex", gap: "16px" }}>
-          <span>Jeremy</span>
-          <span>Lewis</span>
+          <span>Salir</span>
         </nav>
       </header>
       <main style={{ maxWidth: "960px", margin: "0 auto", padding: "24px" }}>
