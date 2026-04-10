@@ -1,6 +1,6 @@
 import { Layout } from "@/shared/";
 import Tabs from "./shared/components/Tabs";
-import { TaskListContainer } from "@/features/tasks/";
+import { TicketListContainer } from "@/features/tickets/";
 import { ProjectListContainer } from "@/features/projects/";
 
 function App() {
@@ -9,7 +9,7 @@ function App() {
       <Tabs defaultTab="projects">
         <Tabs.List>
           <Tabs.Tab id="projects">Proyectos</Tabs.Tab>
-          <Tabs.Tab id="tasks">Tareas</Tabs.Tab>
+          <Tabs.Tab id="tasks">Tickets</Tabs.Tab>
           <Tabs.Tab id="about">Acerca de</Tabs.Tab>
         </Tabs.List>
         <Tabs.Panels>
@@ -17,7 +17,7 @@ function App() {
             <ProjectListContainer />
           </Tabs.Panel>          
           <Tabs.Panel id="tasks">
-            <TaskListContainer projectId="1" />
+            <TicketListContainer projectId="1" />
           </Tabs.Panel>
           <Tabs.Panel id="about">
             <p style={{ color: "blue", padding: "32px", textAlign: "center" }}>
