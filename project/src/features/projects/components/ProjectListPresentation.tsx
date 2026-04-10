@@ -1,4 +1,5 @@
 import type { Project } from "@/features/projects";
+import { Button } from '@/shared/ui/atoms';
 
 interface Props {
   projects: Project[];
@@ -30,7 +31,9 @@ export const ProjectListPresentation = ({ projects }: Props) => {
           ))}
         </tbody>
       </table>
+    <Button variant="secondary" size="sm" onClick={() => alert("Pantalla de creación de proyecto")}>Crear proyecto</Button>
     </div>
+    
   );
 };
 

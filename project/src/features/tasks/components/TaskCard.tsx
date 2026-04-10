@@ -19,7 +19,8 @@ export const TaskCard = ({ task }: Props) => {
       <h4>{task.title}</h4>
       <Badge variant={priorityVariantMap[task.priority ?? "dismissed"]}>{task.priority}</Badge>
       <br></br>
-      <Button onClick={() => alert("Hola siguiente etapa")}>Siguiente Etapa</Button>
+      <Button variant="danger" size="md" onClick={() => alert("Hola etapa anterior")}>Etapa Anterior</Button>
+      <Button variant="primary" size="lg" onClick={() => alert("Hola siguiente etapa")}>Siguiente Etapa</Button>
     </Card>
   );
 };
