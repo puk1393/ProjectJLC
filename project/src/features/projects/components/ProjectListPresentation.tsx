@@ -1,5 +1,6 @@
 import type { Project } from "@/features/projects";
-import { Button } from '@/shared/ui/atoms';
+import { Button, Input } from '@/shared/ui/atoms';
+import { Modal }  from '@/shared/ui/molecules'
 
 interface Props {
   projects: Project[];
@@ -31,7 +32,22 @@ export const ProjectListPresentation = ({ projects }: Props) => {
           ))}
         </tbody>
       </table>
-    <Button variant="secondary" size="sm" onClick={() => alert("Pantalla de creación de proyecto")}>Crear proyecto</Button>
+
+    <Modal>
+      <Modal.Trigger>
+        <Button variant="secondary" size="lg">Crear proyecto</Button>
+      </Modal.Trigger>
+
+      <Modal.Content>
+        <Modal.Header>Nuevo proyecto</Modal.Header>
+        <Modal.Body><span>Nombre:</span> <Input inputSize="sm" variant="default" placeholder="Nombre" /> </Modal.Body>
+        <Modal.Body><span>Descripción:</span> <Input inputSize="sm" variant="success" placeholder="Descripción" /> </Modal.Body>
+        <Modal.Footer>
+          <Button variant="primary" size="sm" onClick={() => alert("Guardando el proyecto")}>Guardar</Button>
+        </Modal.Footer>
+      </Modal.Content>
+
+    </Modal>    
     </div>
     
   );
