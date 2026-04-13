@@ -34,8 +34,8 @@ Modal.Content = ({ children }: { children: ReactNode }) => {
   if (!isOpen) return null;
 
   return (
-    <div style={overlayStyle}>
-      <div style={modalStyle}>
+    <div className="modal-overlay">
+      <div className="modal-content">
         {children}
         <button onClick={() => setIsOpen(false)}>Cerrar</button>
       </div>
@@ -54,21 +54,3 @@ Modal.Body = ({ children }: { children: ReactNode }) => (
 Modal.Footer = ({ children }: { children: ReactNode }) => (
   <div>{children}</div>
 );
-
-const overlayStyle = {
-  position: "fixed" as const,
-  top: 0,
-  left: 0,
-  width: "100%",
-  height: "100%",
-  backgroundColor: "rgba(0,0,0,0.5)",
-  display: "flex",
-  justifyContent: "center",
-  alignItems: "center",
-};
-
-const modalStyle = {
-  backgroundColor: "white",
-  padding: "20px",
-  borderRadius: "8px",
-};

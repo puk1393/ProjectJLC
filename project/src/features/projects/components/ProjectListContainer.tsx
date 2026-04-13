@@ -1,9 +1,11 @@
 import { useProjects }             from '@/features/projects';
 import { ProjectListPresentation } from "@/features/projects";
+import { getActiveProjects }             from '@/features/projects';
 
 export const ProjectListContainer = () => {
   const { projects } = useProjects();
-  const filtered = projects.filter(t => t.status === "active");
+
+  const filtered = getActiveProjects(projects);
 
   return <ProjectListPresentation projects={filtered} />;
 };

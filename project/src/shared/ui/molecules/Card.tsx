@@ -6,13 +6,7 @@ interface CardProps {
 
 export const Card = ({ children }: CardProps) => {
   return (
-  <div  style={{
-        padding: "12px",
-        borderRadius: "8px",
-        border: "1px solid #ddd",
-        backgroundColor: "#fff",
-        marginBottom: "8px",
-      }}>
+  <div  className="card">
       {children}
     </div>
   );

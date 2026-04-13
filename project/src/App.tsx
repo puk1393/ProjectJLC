@@ -2,6 +2,7 @@ import { Layout } from "@/shared/";
 import Tabs from "./shared/components/Tabs";
 import { TicketListContainer } from "@/features/tickets/";
 import { ProjectListContainer } from "@/features/projects/";
+import './App.css';
 
 function App() {
   return (
