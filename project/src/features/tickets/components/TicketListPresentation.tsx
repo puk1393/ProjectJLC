@@ -1,22 +1,20 @@
 import type { Ticket } from "@/features/tickets";
 import { TicketColumn } from "@/features/tickets";
+import { getGroupTicketsByStatus } from "@/features/tickets";
 
 interface Props {
   tickets: Ticket[];
 }
 
 export const TicketListPresentation = ({ tickets }: Props) => {
-  const backlog = tickets.filter(t => t.status === "backlog");
-  const underReview = tickets.filter(t => t.status === "under-review");
-  const inProgress = tickets.filter(t => t.status === "in-progress");
-  const done = tickets.filter(t => t.status === "done");
-
+  const grouped = getGroupTicketsByStatus(tickets);
+  
   return (
-    <div style={{ display: "flex", gap: "20px" }}>
-      <TicketColumn title="BACKLOG" tickets={backlog} />
-      <TicketColumn title="UNDER REVIEW" tickets={underReview} />
-      <TicketColumn title="IN PROGRESS" tickets={inProgress} />
-      <TicketColumn title="DONE" tickets={done} />
+    <div className="ticket-list">
+      <TicketColumn title="BACKLOG" tickets={grouped.backlog} />
+      <TicketColumn title="UNDER REVIEW" tickets={grouped.underReview} />
+      <TicketColumn title="IN PROGRESS" tickets={grouped.inProgress} />
+      <TicketColumn title="DONE" tickets={grouped.done} />
     </div>
   );
 };

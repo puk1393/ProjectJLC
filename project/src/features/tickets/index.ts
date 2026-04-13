@@ -5,7 +5,5 @@ export { TicketListPresentation } from "./components/TicketListPresentation";
 export { useTickets } from "./hooks/useTickets";
 export { mockTickets } from "./utils/mockData";
 export { getTicketsByProjectId } from "./utils/ticketFilters";
+export { getGroupTicketsByStatus } from "./utils/ticketFilters";
 export type { Ticket, TicketPriority } from "./types";
-
-
-

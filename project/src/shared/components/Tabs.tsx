@@ -38,13 +38,7 @@ function Tabs({ defaultTab, children }: TabsProps) {
 
 function TabList({ children }: { children: ReactNode }) {
   return (
-    <div
-      style={{
-        display: "flex",
-        borderBottom: "2px solid #e2e8f0",
-        marginBottom: "16px",
-      }}
-    >
+    <div className="tabs-list">
       {children}
     </div>
   );
@@ -65,20 +59,7 @@ function Tab({ id, children }: TabProps) {
   }, [id, setActiveTab]);
 
   return (
-    <button
-      onClick={handleClick}
-      style={{
-        padding: "12px 24px",
-        border: "none",
-        borderBottom: isActive ? "2px solid #3b82f6" : "2px solid transparent",
-        backgroundColor: "transparent",
-        color: isActive ? "#3b82f6" : "#64748b",
-        fontWeight: isActive ? "600" : "400",
-        cursor: "pointer",
-        fontSize: "14px",
-        marginBottom: "-2px",
-      }}
-    >
+    <button onClick={handleClick} className={`tab-button ${isActive ? "active" : ""}`}>
       {children}
     </button>
   );
