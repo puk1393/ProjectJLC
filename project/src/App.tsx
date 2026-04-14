@@ -1,5 +1,5 @@
 import { Layout } from "@/shared/";
-import Tabs from "./shared/components/Tabs";
+import Tabs from "./shared/ui/organisms/Tabs";
 import { TicketListContainer } from "@/features/tickets/";
 import { ProjectListContainer } from "@/features/projects/";
 import './App.css';

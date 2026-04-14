@@ -1,6 +1,6 @@
 import { useProjects }             from '@/features/projects';
 import { ProjectListPresentation } from "@/features/projects";
-import { getActiveProjects }             from '@/features/projects';
+import { getActiveProjects }       from '@/features/projects';
 
 export const ProjectListContainer = () => {
   const { projects } = useProjects();
