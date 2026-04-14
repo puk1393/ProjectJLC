@@ -3,9 +3,8 @@ import type { ReactNode } from "react";
 type ButtonVariant = "primary" | "secondary" | "danger";
 type ButtonSize = "sm" | "md" | "lg";
 
-interface ButtonProps {
+interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
   children: ReactNode;
-  onClick?: () => void;
   variant?: ButtonVariant;
   size?: ButtonSize;
 }
@@ -33,13 +32,12 @@ const sizeStyles: Record<ButtonSize, React.CSSProperties> = {
 
 export const Button = ({
   children,
-  onClick,
   variant = "primary",
   size = "md",
+  ...props
 }: ButtonProps) => {
   return (
     <button
-      onClick={onClick}
       style={{
         border: "none",
         borderRadius: "6px",
@@ -47,6 +45,7 @@ export const Button = ({
         ...variantStyles[variant],
         ...sizeStyles[size],
       }}
+      {...props}
     >
       {children}
     </button>

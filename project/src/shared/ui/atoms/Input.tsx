@@ -1,9 +1,7 @@
-import type { InputHTMLAttributes } from "react";
-
 type InputVariant = "default" | "error" | "success";
 type InputSize = "sm" | "md" | "lg";
 
-interface InputProps extends InputHTMLAttributes<HTMLInputElement> {
+interface InputProps extends React.InputHTMLAttributes<HTMLInputElement> {
   variant?: InputVariant;
   inputSize?: InputSize;
 }
