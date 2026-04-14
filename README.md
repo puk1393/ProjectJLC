@@ -2,9 +2,9 @@
 Proyecto de react avanzado en Cenfotec BCR
 1) Clonar el repositorio:
     git clone https://github.com/puk1393/ProjectJLC.git
-2) Ingresar a la carpeta del proyecto:
+2) Entrar al proyecto:
     cd ProjectJLC    
-3) Ingresar a la carpeta de este proyecto:
+3) Entrar a la aplicación:
     cd project
 4) Instalar dependencias:
     npm install
