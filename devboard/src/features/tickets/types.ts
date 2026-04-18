@@ -12,6 +12,13 @@ export interface Ticket {
   status?: TicketStatus;
 }
 
+export interface GroupedTickets {
+  backlog: Ticket[];
+  underReview: Ticket[];
+  inProgress: Ticket[];
+  done: Ticket[];
+}
+
 export type TicketAction =
   | { type: "LOAD"; payload: Ticket[] }
   | { type: "ADD"; payload: Ticket }

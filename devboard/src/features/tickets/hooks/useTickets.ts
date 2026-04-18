@@ -2,6 +2,7 @@
 
 import { useEffect, useReducer } from "react";
 import type { Ticket, TicketAction } from "../types";
+import { useAsync } from "@/shared/hooks/useAsync";
 import { mockTickets } from "@/features/tickets";
 
 function ticketReducer(state: Ticket[], action: TicketAction): Ticket[] {
@@ -30,12 +31,33 @@ function ticketReducer(state: Ticket[], action: TicketAction): Ticket[] {
 export const useTickets = () => {
   const [tickets, dispatch] = useReducer(ticketReducer, []);
 
+  const {
+    data,
+    loading,
+    error,
+  } = useAsync<Ticket[]>(
+    async (signal) => {
+      if (signal.aborted)
+        throw new DOMException(
+          "Cancelled",
+          "AbortError"
+        );
+      await new Promise((resolve) =>
+        setTimeout(resolve, 1000)
+      );
+      return mockTickets;
+    },
+    []
+  );
+
   useEffect(() => {
-    dispatch({
-      type: "LOAD",
-      payload: mockTickets,
-    });
-  }, []);
+    if (data) {
+      dispatch({
+        type: "LOAD",
+        payload: data,
+      });
+    }
+  }, [data]);
 
   const addTicket = (ticket: Ticket) => {
     dispatch({ type: "ADD", payload: ticket });
@@ -54,6 +76,8 @@ export const useTickets = () => {
 
   return {
     tickets,
+    loading,
+    error,    
     addTicket,
     deleteTicket,
     changeStatus,

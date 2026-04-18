@@ -1,13 +1,20 @@
 'use client'; //Se debe usar como useClient porque useTickets utiliza useState y el useEffect
-import { useTickets } from "@/features/tickets";
-import { TicketListPresentation } from "@/features/tickets"
-import { getTicketsByProjectId } from "@/features/tickets";
+import { useTickets, TicketListPresentation, getTicketsByProjectId, getGroupTicketsByStatus } from "@/features/tickets";
 
 export const TicketListContainer = ({ projectId }: { projectId: string }) => {
+  const { tickets, loading, error } = useTickets();
+
+  if (loading) {
+    return <p>Cargando tickets...</p>;
+  }
+
+  if (error) {
+    return <p>Error: {error}</p>;
+  }  
+
+  const filtered = getTicketsByProjectId(tickets,projectId); /*Estado derivado*/
   
-  const { tickets } = useTickets();
+  const grouped = getGroupTicketsByStatus(filtered); /*Estado derivado*/
 
-  const filtered = getTicketsByProjectId(tickets,projectId);
-
-  return <TicketListPresentation tickets={filtered} />;
+  return <TicketListPresentation grouped={grouped} />;
 };

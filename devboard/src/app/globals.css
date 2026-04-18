@@ -275,3 +275,41 @@ body {
     min-width: 90%;
   }
 }
+
+.layout.light {
+  color: #329713;
+}
+
+.layout.dark {
+  color: #111827;
+}
+
+.layout.dark .layout-header {
+  background-color: #111827;
+}
+
+.layout.light .layout-header {
+  background-color: #329713;
+}
+
+.layout.light .project-th {
+  background-color: #329713;
+  color: white;
+}
+
+.layout.dark .project-th {
+  background-color: #1e293b;
+  color: #f8fafc;
+}
+
+.layout.light .about-text {
+  color: #329713;
+}
+
+.layout.dark .ticket-list .ticket-column-title .about-text {
+  color: #111827;
+}
+
+.layout.light .ticket-list .ticket-column-title{
+  color: #329713;
+}
