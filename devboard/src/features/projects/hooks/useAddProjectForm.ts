@@ -1,4 +1,4 @@
-'use client';
+'use client'; /*Debido a que se utiliza useState*/
 
 import { useState } from "react";
 

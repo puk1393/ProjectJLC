@@ -1,5 +1,3 @@
-'use client';
-
 import type { ReactNode } from "react";
 import { ThemeProvider } from "@/shared/context/ThemeContext";
 import { AuthProvider } from "@/shared/context/AuthContext";

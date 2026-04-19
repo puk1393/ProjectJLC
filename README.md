@@ -1,5 +1,5 @@
 # ProjectJLC
-Proyecto de react avanzado en Cenfotec BCR
+Proyecto de react avanzado en Cenfotec BCR (Primera Practica) (React vite)
 1) Clonar el repositorio:
     git clone https://github.com/puk1393/ProjectJLC.git
 2) Entrar al proyecto:
@@ -18,6 +18,27 @@ Notas:
 1) Asegúrese de tener instalado Node.js
 2) La aplicación corre completamente en el cliente (sin backend)
 3) Observar donde le crea la carpeta para su posterior eliminación
+------------------------------------------------------------------------
+Proyecto de react avanzado en Cenfotec BCR (Segunda Practica) (Next.js)
+1) Clonar el repositorio:
+    git clone https://github.com/puk1393/ProjectJLC.git
+2) Ingresar a la carpeta del proyecto:
+    cd ProjectJLC    
+3) Ingresar a la carpeta de este proyecto:
+    cd devboard
+4) Instalar dependencias:
+    npm install
+5) Ejecutar la aplicación:
+    npm run dev
+6) Abrir en el navegador:
+    La terminal mostrará una URL similar a: http://localhost:3000/
+    Abrir esa dirección en el navegador.
+
+Notas: 
+1) Asegúrese de tener instalado Node.js
+2) La aplicación corre completamente en el cliente (sin backend)
+3) Observar donde le crea la carpeta para su posterior eliminación
+4) Ahora es un proyecto Next.js
 
 Autor:
 Jeremy Lewis Castillo

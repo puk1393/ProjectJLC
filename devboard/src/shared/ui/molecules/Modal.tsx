@@ -1,4 +1,4 @@
-'use client'; /*Se utiliza por el useState*/
+'use client'; /*Se utiliza por el useState y useContext*/
 import { createContext, useContext, useState, type ReactNode } from "react";
 
 interface ModalContextProps {

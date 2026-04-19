@@ -1,5 +1,3 @@
-'use client';
-
 import type { ReactNode } from "react";
 import { Button } from "@/shared/ui/atoms";
 import { useTheme } from "@/shared/context/ThemeContext";

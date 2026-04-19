@@ -1,0 +1,130 @@
+import { create } from "zustand";
+import type { Project } from "../types";
+import { mockProjects } from "@/features/projects";
+
+interface ProjectsStore {
+  projects: Project[];
+  loading: boolean;
+  error: string | null;
+
+  loadProjects: () => Promise<void>;
+
+  addProject: (project: Project) => Promise<void>;
+
+  deleteProject: (id: string) => void;
+
+  updateProject: (id: string,data: Partial<Project>) => void;
+
+  changeStatus: (id: string,status: Project["status"]) => void;
+}
+
+export const useProjectsStore =
+  create<ProjectsStore>(
+    (set) => ({
+      projects: [],
+      loading: false,
+      error: null,
+
+      loadProjects: async () => {
+        try {
+          set({
+            loading: true,
+            error: null,
+          });
+
+          await new Promise((r) =>
+            setTimeout(r, 200)
+          );
+
+          set({
+            projects: mockProjects,
+            loading: false,
+          });
+
+        } catch {
+          set({
+            error:
+              "Error cargando proyectos",
+            loading: false,
+          });
+        }
+      },
+      
+      addProject:
+        async (
+          project
+        ) => {
+          set(
+            (state) => ({
+              projects:
+                [
+                  ...state.projects,
+                  project,
+                ],
+            })
+          );
+
+          try {
+            await new Promise(
+              (
+                resolve,
+                reject
+              ) =>
+                setTimeout( /*Realizamos esta logica para en casos poder probar el reject y ver optimistic updates con rollback*/
+                  () => {
+                    Math.random() > 0.2 ? resolve(true) : reject();
+                  },
+                  1000
+                )
+            );
+          } catch {
+            set(
+              (state) => ({
+                projects:
+                  state.projects.filter((p) => p.id !== project.id),
+              })
+            );
+            alert(
+              "Error al guardar proyecto"
+            );
+          }
+        },
+
+      deleteProject:
+        (id) =>
+          set(
+            (state) => ({
+              projects:
+                state.projects.filter((project) => project.id !== id),
+            })
+          ),
+
+      updateProject:
+        (
+          id,
+          data
+        ) =>
+          set(
+            (state) => ({
+              projects:
+                state.projects.map(
+                  (project) => project.id === id ? {...project, ...data,}: project
+                ),
+            })
+          ),
+
+      changeStatus:
+        (
+          id,
+          status
+        ) =>
+          set(
+            (state) => ({
+              projects:
+                state.projects.map(
+                  (project) => project.id === id ? {...project,status,}: project
+                ),
+            })
+          ),
+    })
+  );

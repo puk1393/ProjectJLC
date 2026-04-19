@@ -1,4 +1,4 @@
-'use client';
+'use client'; //Se utiliza useState
 
 import {
   createContext,

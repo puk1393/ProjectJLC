@@ -1,4 +1,4 @@
-'use client'; //Se debe usar como useClient porque useTickets utiliza useState y el useEffect
+'use client'; //Porque useTickets utiliza useReducer
 import { useTickets, TicketListPresentation, getTicketsByProjectId, getGroupTicketsByStatus } from "@/features/tickets";
 
 export const TicketListContainer = ({ projectId }: { projectId: string }) => {

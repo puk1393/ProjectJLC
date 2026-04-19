@@ -1,14 +1,29 @@
 'use client';
 
-import { useProjects, ProjectListPresentation, } from "@/features/projects";
-import { getActiveProjects} from "@/features/projects";
+import { useEffect } from "react";
+import { useProjectManager, ProjectListPresentation } from "@/features/projects";
 
 export const ProjectListContainer = () => {
-  const { projects, addProject} = useProjects();
+  const {
+    activeProjects,
+    loading,
+    totalActiveProjects,
+    addProject,
+    loadProjects,
+  } = useProjectManager();
 
-  const filtered = getActiveProjects(projects);
+  useEffect(() => {
+    loadProjects();
+  }, [loadProjects]);
+
+  if (loading) return <p>Cargando proyectos...</p>;
+
 
   return (
-    <ProjectListPresentation projects={filtered} addProject={addProject} />
+    <ProjectListPresentation
+      projects={activeProjects}
+      addProject={addProject}
+      totalProjects={totalActiveProjects}
+    />
   );
 };

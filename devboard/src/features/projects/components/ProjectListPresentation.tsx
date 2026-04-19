@@ -1,4 +1,4 @@
-'use client'; /* porque utilizamos el useForm el cual utiliza useState */
+'use client'; /* porque utilizamos el useAddProjetForm el cual utiliza useState */
 
 import type { Project } from "@/features/projects";
 import { useAddProjetForm } from "@/features/projects";
@@ -9,9 +9,10 @@ import { Modal } from "@/shared/ui/molecules";
 interface Props {
   projects: Project[];
   addProject: (project: Project) => Promise<void>;
+  totalProjects: number
 }
 
-export const ProjectListPresentation = ({projects, addProject,}: Props) => {
+export const ProjectListPresentation = ({projects, addProject, totalProjects}: Props) => {
   const {
     values,
     errors,
@@ -61,6 +62,7 @@ export const ProjectListPresentation = ({projects, addProject,}: Props) => {
         </tbody>
       </table>
 
+      <span>Cantidad total de proyectos: {totalProjects}</span> <br></br><br></br>
       <Modal>
         <Modal.Trigger>
           <Button variant="secondary" size="lg">
