@@ -3,7 +3,7 @@
 import { useEffect, useReducer } from "react";
 import type { Ticket, TicketAction } from "../types";
 import { useAsync } from "@/shared/hooks/useAsync";
-import { mockTickets } from "@/features/tickets";
+import { mockTickets } from '@/shared/data/mockData';
 
 function ticketReducer(state: Ticket[], action: TicketAction): Ticket[] {
   switch (action.type) {

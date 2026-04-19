@@ -1,6 +1,6 @@
 import { create } from "zustand";
 import type { Project } from "../types";
-import { mockProjects } from "@/features/projects";
+import { mockProjects } from '@/shared/data/mockData';
 
 interface ProjectsStore {
   projects: Project[];
