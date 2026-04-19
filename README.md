@@ -18,6 +18,8 @@ Notas:
 1) Asegúrese de tener instalado Node.js
 2) La aplicación corre completamente en el cliente (sin backend)
 3) Observar donde le crea la carpeta para su posterior eliminación
+4) Lenguaje de programación: React con Vite
+
 ------------------------------------------------------------------------
 Proyecto de react avanzado en Cenfotec BCR (Segunda Practica) (Next.js)
 1) Clonar el repositorio:
@@ -38,7 +40,7 @@ Notas:
 1) Asegúrese de tener instalado Node.js
 2) La aplicación corre completamente en el cliente (sin backend)
 3) Observar donde le crea la carpeta para su posterior eliminación
-4) Ahora es un proyecto Next.js
+4) Lenguaje de programación: Next.js
 
 Autor:
 Jeremy Lewis Castillo
