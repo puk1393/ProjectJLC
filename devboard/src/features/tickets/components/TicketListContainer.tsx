@@ -1,4 +1,4 @@
-'use client'; //Porque useTickets utiliza useReducer
+'use client'; /* Se utiliza porque se emplean hooks como useState y useEffect en los componentes hijos */
 import { useTickets, TicketListPresentation, getTicketsByProjectId, getGroupTicketsByStatus } from "@/features/tickets";
 import { useMemo } from "react";
 

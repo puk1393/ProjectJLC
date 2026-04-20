@@ -1,4 +1,4 @@
-'use client'; //se utiliza useState
+'use client'; // Necesario porque este contexto usa useState y useContext de React
 
 import {
   createContext,

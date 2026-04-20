@@ -1,4 +1,4 @@
-'use client';
+'use client'; // Necesario porque este layout usa providers y componentes que dependen de hooks de React
 
 import "./globals.css";
 import { Layout } from "@/shared";

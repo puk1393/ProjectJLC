@@ -1,4 +1,4 @@
-'use client';
+'use client'; // Necesario porque este componente y sus hijos usan componentes interactivos y/o hooks de React
 
 import React, { FC } from "react";
 import { Card } from "@/shared/ui/molecules";

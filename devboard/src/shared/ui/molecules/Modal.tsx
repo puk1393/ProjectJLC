@@ -1,4 +1,4 @@
-'use client'; /* Se utiliza por el useState y useContext */
+'use client'; // Necesario porque este componente usa useState y useContext de React
 import { createContext, useContext, useState} from "react";
 import type { ReactNode, FC } from "react";
 

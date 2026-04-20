@@ -5,13 +5,15 @@ import { describe, it, expect, vi } from "vitest";
 import { TicketListContainer } from "../TicketListContainer";
 
 vi.mock("@/features/tickets", async () => {
-  const actual = await vi.importActual("@/features/tickets");
+  const actual = await vi.importActual(
+    "@/features/tickets"
+  );
 
   return {
     ...actual,
 
     useTickets: () => ({
-      tickets: [
+      filteredTickets: [
         {
           id: "1",
           title: "Bug login",
@@ -29,6 +31,8 @@ vi.mock("@/features/tickets", async () => {
           status: "done"
         }
       ],
+
+      setSearch: vi.fn(),
       error: null
     })
   };
@@ -36,26 +40,16 @@ vi.mock("@/features/tickets", async () => {
 
 describe("TicketListContainer", () => {
   it("renders only tickets for selected project", () => {
-    render(<TicketListContainer projectId="A" />);
+    render(
+      <TicketListContainer projectId="A" />
+    );
 
-    expect(screen.getByText("Bug login")).toBeInTheDocument();
-    expect(screen.queryByText("Dashboard")).not.toBeInTheDocument();
-  });
+    expect(
+      screen.getByText("Bug login")
+    ).toBeInTheDocument();
 
-  it("renders error message", () => {
-    vi.doMock("@/features/tickets", () => ({
-      useTickets: () => ({
-        tickets: [],
-        error: "Fallo"
-      }),
-      TicketListPresentation: () => <div>Mock</div>,
-      getTicketsByProjectId: () => [],
-      getGroupTicketsByStatus: () => ({
-        backlog: [],
-        underReview: [],
-        inProgress: [],
-        done: []
-      })
-    }));
+    expect(
+      screen.queryByText("Dashboard")
+    ).not.toBeInTheDocument();
   });
 });

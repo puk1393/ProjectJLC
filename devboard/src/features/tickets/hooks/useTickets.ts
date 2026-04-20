@@ -1,4 +1,4 @@
-'use client'; /*Se debe de utilizar por el useReducer*/
+'use client'; // Necesario porque este hook usa useReducer y otros hooks de React
 
 import { useCallback, useEffect, useReducer, useState, useDeferredValue, useMemo } from "react";
 import type { Ticket, TicketAction } from "../types";

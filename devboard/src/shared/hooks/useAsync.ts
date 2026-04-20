@@ -1,4 +1,4 @@
-'use client'; // se utiliza useState y useEffect
+'use client'; // Necesario porque este hook usa useState y useEffect de React
 import { useEffect, useState, type DependencyList } from "react";
 
 export function useAsync<T>(

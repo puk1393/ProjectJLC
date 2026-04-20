@@ -1,4 +1,4 @@
-'use client';
+'use client'; // Necesario porque este componente renderiza hijos que usan hooks de React y componentes interactivos
 
 import React, { FC } from "react";
 import type { Ticket } from "@/features/tickets";
