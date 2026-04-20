@@ -12,7 +12,7 @@ Proyecto de react avanzado en Cenfotec BCR
     npm run dev
 6) Abrir en el navegador:
     La terminal mostrará una URL similar a: http://localhost:5173/
-    Abrir esa dirección en el navegador.
+    Abrir esa dirección en el navegador..
 
 Notas: 
 1) Asegúrese de tener instalado Node.js
