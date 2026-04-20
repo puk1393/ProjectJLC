@@ -1,5 +1,3 @@
-'use client';
-
 import { renderHook, waitFor, act } from "@testing-library/react";
 import { describe, it, expect } from "vitest";
 import { useTickets } from "../useTickets";

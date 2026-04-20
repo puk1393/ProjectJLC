@@ -1,6 +1,4 @@
 // prueba integración entre lista, columnas y tickets renderizados.
-'use client';
-
 import { render, screen } from "@testing-library/react";
 import { describe, it, expect } from "vitest";
 import { TicketListPresentation } from "../TicketListPresentation";

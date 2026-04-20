@@ -1,6 +1,4 @@
 //valida lógica reutilizable del hook personalizado.
-'use client';
-
 import { renderHook, waitFor } from "@testing-library/react";
 import { describe, it, expect } from "vitest";
 import { useAsync } from "../useAsync";
