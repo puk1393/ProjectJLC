@@ -10,9 +10,9 @@ export const TicketListPresentation = memo(function TicketListPresentation({ gro
   return (
     <div className="ticket-list">
       <TicketColumn title="BACKLOG" tickets={grouped.backlog}/>
-      <TicketColumn title="UNDER REVIEW" tickets={grouped.underReview} />
-      <TicketColumn title="IN PROGRESS" tickets={grouped.inProgress} />
-      <TicketColumn title="DONE" tickets={grouped.done} />
+      <TicketColumn title="EN PROGRESO" tickets={grouped.inProgress} />
+      <TicketColumn title="EN REVISIÓN" tickets={grouped.underReview} />
+      <TicketColumn title="COMPLETADO" tickets={grouped.done} />
     </div>
   );
 });

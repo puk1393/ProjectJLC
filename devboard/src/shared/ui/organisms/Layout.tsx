@@ -21,7 +21,7 @@ export function Layout({children,}: LayoutProps) {
     <div className={`layout ${theme}`}>
       <header className="layout-header">
         <div className="layout-brand">
-          <Image src="/DevBoard.png" alt="Dev Board" width={200} height={75}/>
+          <Image src="/DevBoard.png" alt="Dev Board" width={200} height={75} priority/>
         </div>        
 
         <nav className="layout-nav">

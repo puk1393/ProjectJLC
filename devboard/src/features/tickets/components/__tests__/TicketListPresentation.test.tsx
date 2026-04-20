@@ -36,9 +36,9 @@ describe("TicketListPresentation", () => {
     render(<TicketListPresentation grouped={grouped} />);
 
     expect(screen.getByText("BACKLOG")).toBeInTheDocument();
-    expect(screen.getByText("UNDER REVIEW")).toBeInTheDocument();
-    expect(screen.getByText("IN PROGRESS")).toBeInTheDocument();
-    expect(screen.getByText("DONE")).toBeInTheDocument();
+    expect(screen.getByText("EN PROGRESO")).toBeInTheDocument();
+    expect(screen.getByText("EN REVISIÓN")).toBeInTheDocument();
+    expect(screen.getByText("COMPLETADO")).toBeInTheDocument();
 
     expect(screen.getByText("Bug login")).toBeInTheDocument();
     expect(screen.getByText("Dashboard error")).toBeInTheDocument();
