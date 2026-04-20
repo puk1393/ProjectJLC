@@ -1,0 +1,61 @@
+'use client';
+
+import { render, screen } from "@testing-library/react";
+import { describe, it, expect, vi } from "vitest";
+import { TicketListContainer } from "../TicketListContainer";
+
+vi.mock("@/features/tickets", async () => {
+  const actual = await vi.importActual<any>("@/features/tickets");
+
+  return {
+    ...actual,
+
+    useTickets: () => ({
+      tickets: [
+        {
+          id: "1",
+          title: "Bug login",
+          projectId: "A",
+          priority: "high",
+          responsible: "Jeremy",
+          status: "backlog"
+        },
+        {
+          id: "2",
+          title: "Dashboard",
+          projectId: "B",
+          priority: "medium",
+          responsible: "Ana",
+          status: "done"
+        }
+      ],
+      error: null
+    })
+  };
+});
+
+describe("TicketListContainer", () => {
+  it("renders only tickets for selected project", () => {
+    render(<TicketListContainer projectId="A" />);
+
+    expect(screen.getByText("Bug login")).toBeInTheDocument();
+    expect(screen.queryByText("Dashboard")).not.toBeInTheDocument();
+  });
+
+  it("renders error message", () => {
+    vi.doMock("@/features/tickets", () => ({
+      useTickets: () => ({
+        tickets: [],
+        error: "Fallo"
+      }),
+      TicketListPresentation: () => <div>Mock</div>,
+      getTicketsByProjectId: () => [],
+      getGroupTicketsByStatus: () => ({
+        backlog: [],
+        underReview: [],
+        inProgress: [],
+        done: []
+      })
+    }));
+  });
+});
