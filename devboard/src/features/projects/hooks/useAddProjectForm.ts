@@ -7,7 +7,7 @@ interface FormValues {
   description: string;
 }
 
-export const useAddProjetForm = () => {
+export const useAddProjectForm = () => {
   const [values, setValues] = useState<FormValues>({
     name: "",
     description: "",

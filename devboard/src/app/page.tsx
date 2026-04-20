@@ -1,3 +1,7 @@
+export const metadata = {
+  title: 'DevBoard',
+};
+
 export default function HomePage() {
   return (
     <div style={{ padding: "20px" }}>

@@ -1,7 +1,7 @@
-'use client'; /* porque utilizamos el useAddProjetForm el cual utiliza useState */
+'use client'; /* porque utilizamos el useAddProjectForm el cual utiliza useState */
 
 import type { Project } from "@/features/projects";
-import { useAddProjetForm } from "@/features/projects";
+import { useAddProjectForm } from "@/features/projects";
 import { Button, Input } from "@/shared/ui/atoms";
 import { Modal } from "@/shared/ui/molecules";
 import { memo } from "react";
@@ -21,7 +21,7 @@ export const ProjectListPresentation = memo(function ProjectListPresentation({ p
     handleChange,
     handleBlur,
     handleSubmit,
-  } = useAddProjetForm();
+  } = useAddProjectForm();
 
   return (
     <div className="project-container">
