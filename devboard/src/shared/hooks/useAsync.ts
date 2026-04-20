@@ -33,8 +33,7 @@ export function useAsync<T>(
     run();
 
     return () => controller.abort();
-
-  }, [asyncFunction, ...deps]);
+  }, [asyncFunction, deps]);
 
   return {
     data,

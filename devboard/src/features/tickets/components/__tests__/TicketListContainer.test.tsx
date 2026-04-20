@@ -5,7 +5,7 @@ import { describe, it, expect, vi } from "vitest";
 import { TicketListContainer } from "../TicketListContainer";
 
 vi.mock("@/features/tickets", async () => {
-  const actual = await vi.importActual<any>("@/features/tickets");
+  const actual = await vi.importActual("@/features/tickets");
 
   return {
     ...actual,
