@@ -1,6 +1,6 @@
 'use client'; /*Se debe de utilizar por el useReducer*/
 
-import { useCallback, useEffect, useReducer } from "react";
+import { useCallback, useEffect, useReducer, useState, useDeferredValue, useMemo } from "react";
 import type { Ticket, TicketAction } from "../types";
 import { useAsync } from "@/shared/hooks/useAsync";
 import { mockTickets } from '@/shared/data/mockData';
@@ -30,6 +30,8 @@ function ticketReducer(state: Ticket[], action: TicketAction): Ticket[] {
 
 export const useTickets = () => {
   const [tickets, dispatch] = useReducer(ticketReducer, []);
+  const [search, setSearch] = useState("");
+  const deferredSearch = useDeferredValue(search);
 
   const {
     data,
@@ -68,8 +70,18 @@ export const useTickets = () => {
     dispatch({ type: "CHANGE_STATUS", payload: { id, status } });
   }, [dispatch]);
 
+  const filteredTickets = useMemo(() => {
+    if (!deferredSearch) return tickets;
+    return tickets.filter(ticket =>
+      ticket.title.toLowerCase().includes(deferredSearch.toLowerCase())
+    );
+  }, [tickets, deferredSearch]);
+
   return {
     tickets,
+    filteredTickets,
+    search,
+    setSearch,
     loading,
     error,    
     addTicket,

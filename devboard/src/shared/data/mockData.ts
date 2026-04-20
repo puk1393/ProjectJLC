@@ -39,7 +39,7 @@ export const mockTickets: Ticket[] = [
   },
   {
     id: "2",
-    title: "Carrito de compras",
+    title: "Pantalla de proyectos",
     projectId: "1",
     priority: "high",
     responsible: "Camilo",
@@ -47,7 +47,7 @@ export const mockTickets: Ticket[] = [
   },
   {
     id: "3",
-    title: "Pantalla devolución",
+    title: "Pantalla de Tickets",
     projectId: "1",
     priority: "dismissed",
     responsible: "Pedro",
@@ -61,4 +61,18 @@ export const mockTickets: Ticket[] = [
     priority: "high",
     status: "done"
   },  
+  {
+    id: "5",
+    title: "Configuración de Temas",
+    projectId: "1",
+    priority: "high",
+    status: "done"
+  },    
+  {
+    id: "6",
+    title: "Rendimiento",
+    projectId: "1",
+    priority: "high",
+    status: "done"
+  },    
 ];
