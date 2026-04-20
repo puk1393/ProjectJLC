@@ -6,7 +6,7 @@ interface TicketListProps {
   grouped: GroupedTickets;
 }
 
-export const TicketListPresentation = memo(function TicketListPresentation({ grouped }: TicketListProps) {
+const TicketListPresentation = memo(function TicketListPresentation({ grouped }: TicketListProps) {
   return (
     <div className="ticket-list">
       <TicketColumn title="BACKLOG" tickets={grouped.backlog}/>
@@ -16,3 +16,5 @@ export const TicketListPresentation = memo(function TicketListPresentation({ gro
     </div>
   );
 });
+
+export default TicketListPresentation;

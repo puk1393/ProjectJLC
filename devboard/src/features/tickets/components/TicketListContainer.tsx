@@ -1,7 +1,8 @@
 'use client'; /* Se utiliza porque se emplean hooks como useState y useEffect en los componentes hijos */
-import { useTickets, TicketListPresentation, getTicketsByProjectId, getGroupTicketsByStatus } from "@/features/tickets";
-import { useMemo } from "react";
+import { useTickets, getTicketsByProjectId, getGroupTicketsByStatus } from "@/features/tickets";
+import { useMemo, Suspense, lazy } from "react";
 
+const TicketListPresentation = lazy(() => import("./TicketListPresentation"));
 export const TicketListContainer = ({ projectId }: { projectId: string }) => {
   const { filteredTickets, setSearch, error } = useTickets();
 
@@ -20,7 +21,9 @@ export const TicketListContainer = ({ projectId }: { projectId: string }) => {
         onChange={e => setSearch(e.target.value)}
         className="ticket-search-input"
       />
-      <TicketListPresentation grouped={grouped} />
+      <Suspense fallback={<div>Cargando lista de tickets...</div>}>
+        <TicketListPresentation grouped={grouped} />
+      </Suspense>
     </>
   );
 };
