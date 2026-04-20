@@ -72,7 +72,11 @@ export const useProjectsStore =
               ) =>
                 setTimeout( /*Realizamos esta logica para en casos poder probar el reject y ver optimistic updates con rollback*/
                   () => {
-                    Math.random() > 0.2 ? resolve(true) : reject();
+                    if (Math.random() > 0.2) {
+                      resolve(true);
+                    } else {
+                      reject();
+                    }
                   },
                   1000
                 )
@@ -108,7 +112,7 @@ export const useProjectsStore =
             (state) => ({
               projects:
                 state.projects.map(
-                  (project) => project.id === id ? {...project, ...data,}: project
+                  (project) => project.id === id ? {...project, ...data}: project
                 ),
             })
           ),
@@ -122,7 +126,7 @@ export const useProjectsStore =
             (state) => ({
               projects:
                 state.projects.map(
-                  (project) => project.id === id ? {...project,status,}: project
+                  (project) => project.id === id ? {...project,status}: project
                 ),
             })
           ),

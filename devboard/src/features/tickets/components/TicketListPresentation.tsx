@@ -1,11 +1,12 @@
 import { TicketColumn } from "@/features/tickets";
 import type { GroupedTickets } from "@/features/tickets";
+import { memo } from "react";
 
-interface Props {  
+interface TicketListProps {  
   grouped: GroupedTickets;
 }
 
-export const TicketListPresentation = ({grouped} : Props) => {
+export const TicketListPresentation = memo(function TicketListPresentation({ grouped }: TicketListProps) {
   return (
     <div className="ticket-list">
       <TicketColumn title="BACKLOG" tickets={grouped.backlog}/>
@@ -14,4 +15,4 @@ export const TicketListPresentation = ({grouped} : Props) => {
       <TicketColumn title="DONE" tickets={grouped.done} />
     </div>
   );
-};
+});

@@ -1,12 +1,11 @@
 'use client';
 
-import { useEffect } from "react";
-import { useProjectManager, ProjectListPresentation } from "@/features/projects";
+import { useEffect, useCallback } from "react";
+import { useProjectManager, ProjectListPresentation, Project } from "@/features/projects";
 
 export const ProjectListContainer = () => {
   const {
     activeProjects,
-    loading,
     totalActiveProjects,
     addProject,
     loadProjects,
@@ -16,13 +15,14 @@ export const ProjectListContainer = () => {
     loadProjects();
   }, [loadProjects]);
 
-  if (loading) return <p>Cargando proyectos...</p>;
-
+  const handleAddProject = useCallback(async (project: Project) => {
+    await addProject(project);
+  }, [addProject]);  
 
   return (
     <ProjectListPresentation
       projects={activeProjects}
-      addProject={addProject}
+      addProject={handleAddProject}
       totalProjects={totalActiveProjects}
     />
   );

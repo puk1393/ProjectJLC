@@ -1,4 +1,5 @@
 import type { ReactNode } from "react";
+import { memo } from "react"
 
 type BadgeVariant = "default" | "success" | "warning" | "error";
 
@@ -14,16 +15,18 @@ const variantStyles: Record<BadgeVariant, React.CSSProperties> = {
   error:   { backgroundColor: "#fecaca", color: "#7f1d1d" },
 };
 
-export const Badge = ({ children, variant = "default" }: BadgeProps) => {
+export const Badge = memo(function Badge({ children, variant = "default" }: BadgeProps) {
   return (
-    <span style={{
-      padding: "4px 8px",
-      borderRadius: "6px",
-      fontSize: "12px",
-      fontWeight: 500,
-      ...variantStyles[variant],
-    }}>
+    <span
+      style={{
+        padding: "4px 8px",
+        borderRadius: "6px",
+        fontSize: "12px",
+        fontWeight: 500,
+        ...variantStyles[variant],
+      }}
+    >
       {children}
     </span>
   );
-};
+});

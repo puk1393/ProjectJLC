@@ -1,17 +1,12 @@
-'use client'; //se utiliza useState y useEffect
-
-import { useEffect, useState} from "react";
+'use client'; // se utiliza useState y useEffect
+import { useEffect, useState, type DependencyList } from "react";
 
 export function useAsync<T>(
-  asyncFunction: (
-    signal: AbortSignal
-  ) => Promise<T>,
-  dependencies: React.DependencyList = []
+  asyncFunction: (signal: AbortSignal) => Promise<T>,
+  deps: DependencyList = []
 ) {
   const [data, setData] = useState<T | null>(null);
-
   const [loading, setLoading] = useState(true);
-
   const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
@@ -23,12 +18,9 @@ export function useAsync<T>(
         setError(null);
 
         const result = await asyncFunction(controller.signal);
-
         setData(result);
-      } catch (err: any) {
-        if (
-          err.name !== "AbortError"
-        ) {
+      } catch (err: unknown) {
+        if (err instanceof Error && err.name !== "AbortError") {
           setError("Error cargando datos");
         }
       } finally {
@@ -40,10 +32,10 @@ export function useAsync<T>(
 
     run();
 
-    return () => {
-      controller.abort();
-    };
-  }, dependencies);
+    return () => controller.abort();
+
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [asyncFunction, ...deps]);
 
   return {
     data,

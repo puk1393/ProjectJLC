@@ -1,3 +1,5 @@
+import { memo } from "react";
+
 type InputVariant = "default" | "error" | "success";
 type InputSize = "sm" | "md" | "lg";
 
@@ -26,11 +28,11 @@ const inputStyles: Record<InputSize, React.CSSProperties> = {
   lg: { padding: "10px 14px", fontSize: "16px" },
 };
 
-export const Input = ({
+export const Input = memo(function Input({
   variant = "default",
   inputSize = "md",
   ...props
-}: InputProps) => {
+}: InputProps) {
   return (
     <input
       {...props}
@@ -43,4 +45,4 @@ export const Input = ({
       }}
     />
   );
-};
+});

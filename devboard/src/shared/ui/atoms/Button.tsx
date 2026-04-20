@@ -1,4 +1,5 @@
 import type { ReactNode } from "react";
+import { memo } from "react";
 
 type ButtonVariant = "primary" | "secondary" | "danger";
 type ButtonSize = "sm" | "md" | "lg";
@@ -30,12 +31,12 @@ const sizeStyles: Record<ButtonSize, React.CSSProperties> = {
   lg: { padding: "10px 16px", fontSize: "16px" },
 };
 
-export const Button = ({
+export const Button = memo(function Button({
   children,
   variant = "primary",
   size = "md",
   ...props
-}: ButtonProps) => {
+}: ButtonProps) {
   return (
     <button
       style={{
@@ -50,4 +51,4 @@ export const Button = ({
       {children}
     </button>
   );
-};
+});

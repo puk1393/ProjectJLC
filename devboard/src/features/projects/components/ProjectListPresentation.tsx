@@ -2,17 +2,17 @@
 
 import type { Project } from "@/features/projects";
 import { useAddProjetForm } from "@/features/projects";
-
 import { Button, Input } from "@/shared/ui/atoms";
 import { Modal } from "@/shared/ui/molecules";
+import { memo } from "react";
 
-interface Props {
+interface ProjectListProps {
   projects: Project[];
   addProject: (project: Project) => Promise<void>;
   totalProjects: number
 }
 
-export const ProjectListPresentation = ({projects, addProject, totalProjects}: Props) => {
+export const ProjectListPresentation = memo(function ProjectListPresentation({ projects, addProject, totalProjects }: ProjectListProps) {
   const {
     values,
     errors,
@@ -25,9 +25,9 @@ export const ProjectListPresentation = ({projects, addProject, totalProjects}: P
 
   return (
     <div className="project-container">
-      <h1 className="project-title">
-        Lista de proyectos
-      </h1>
+    <h1 className="project-title">
+      Lista de proyectos
+    </h1>
 
       <table className="project-table">
         <thead>
@@ -135,4 +135,4 @@ export const ProjectListPresentation = ({projects, addProject, totalProjects}: P
       </Modal>
     </div>
   );
-};
+});

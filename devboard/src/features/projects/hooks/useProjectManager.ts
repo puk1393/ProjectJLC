@@ -1,4 +1,5 @@
 import { useProjectsStore, getActiveProjects } from "@/features/projects";
+import { useMemo } from "react";
 
 export const useProjectManager = () => {
   const {
@@ -12,9 +13,9 @@ export const useProjectManager = () => {
     loadProjects,
   } = useProjectsStore();
 
-  const activeProjects = getActiveProjects(projects);
+  const activeProjects = useMemo(() => getActiveProjects(projects), [projects]);
 
-  const totalActiveProjects = activeProjects.length;
+  const totalActiveProjects = useMemo(() => activeProjects.length,[activeProjects]);  
 
   return {
     projects,

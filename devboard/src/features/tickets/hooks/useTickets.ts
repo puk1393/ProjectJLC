@@ -1,6 +1,6 @@
 'use client'; /*Se debe de utilizar por el useReducer*/
 
-import { useEffect, useReducer } from "react";
+import { useCallback, useEffect, useReducer } from "react";
 import type { Ticket, TicketAction } from "../types";
 import { useAsync } from "@/shared/hooks/useAsync";
 import { mockTickets } from '@/shared/data/mockData';
@@ -42,9 +42,6 @@ export const useTickets = () => {
           "Cancelled",
           "AbortError"
         );
-      await new Promise((resolve) =>
-        setTimeout(resolve, 1000)
-      );
       return mockTickets;
     },
     []
@@ -59,20 +56,17 @@ export const useTickets = () => {
     }
   }, [data]);
 
-  const addTicket = (ticket: Ticket) => {
+  const addTicket = useCallback((ticket: Ticket) => {
     dispatch({ type: "ADD", payload: ticket });
-  };
+  }, [dispatch]);
 
-  const deleteTicket = (id: string) => {
+  const deleteTicket = useCallback((id: string) => {
     dispatch({ type: "DELETE", payload: id });
-  };
+  }, [dispatch]);
 
-  const changeStatus = (id: string, status: Ticket["status"]) => {
-    dispatch({
-      type: "CHANGE_STATUS",
-      payload: { id, status },
-    });
-  };
+  const changeStatus = useCallback((id: string, status: Ticket["status"]) => {
+    dispatch({ type: "CHANGE_STATUS", payload: { id, status } });
+  }, [dispatch]);
 
   return {
     tickets,

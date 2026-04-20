@@ -1,5 +1,6 @@
-'use client'; /*Se utiliza por el useState y useContext*/
-import { createContext, useContext, useState, type ReactNode } from "react";
+'use client'; /* Se utiliza por el useState y useContext */
+import { createContext, useContext, useState} from "react";
+import type { ReactNode, FC } from "react";
 
 interface ModalContextProps {
   isOpen: boolean;
@@ -24,14 +25,13 @@ export const Modal = ({ children }: { children: ReactNode }) => {
   );
 };
 
-Modal.Trigger = ({ children }: { children: ReactNode }) => {
+const ModalTrigger: FC<{ children: ReactNode }> = ({ children }) => {
   const { setIsOpen } = useModal();
   return <div onClick={() => setIsOpen(true)}>{children}</div>;
 };
 
-Modal.Content = ({ children }: { children: ReactNode }) => {
+const ModalContent: FC<{ children: ReactNode }> = ({ children }) => {
   const { isOpen, setIsOpen } = useModal();
-
   if (!isOpen) return null;
 
   return (
@@ -44,14 +44,19 @@ Modal.Content = ({ children }: { children: ReactNode }) => {
   );
 };
 
-Modal.Header = ({ children }: { children: ReactNode }) => (
-  <h2>{children}</h2>
-);
+const ModalHeader: FC<{ children: ReactNode }> = ({ children }) => <h2>{children}</h2>;
+const ModalBody: FC<{ children: ReactNode }> = ({ children }) => <div>{children}</div>;
+const ModalFooter: FC<{ children: ReactNode }> = ({ children }) => <div>{children}</div>;
 
-Modal.Body = ({ children }: { children: ReactNode }) => (
-  <div>{children}</div>
-);
+Modal.Trigger = ModalTrigger;
+Modal.Content = ModalContent;
+Modal.Header = ModalHeader;
+Modal.Body = ModalBody;
+Modal.Footer = ModalFooter;
 
-Modal.Footer = ({ children }: { children: ReactNode }) => (
-  <div>{children}</div>
-);
+Modal.displayName = "Modal";
+Modal.Trigger.displayName = "ModalTrigger";
+Modal.Content.displayName = "ModalContent";
+Modal.Header.displayName = "ModalHeader";
+Modal.Body.displayName = "ModalBody";
+Modal.Footer.displayName = "ModalFooter";

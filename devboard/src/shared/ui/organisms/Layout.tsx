@@ -2,6 +2,7 @@ import type { ReactNode } from "react";
 import { Button } from "@/shared/ui/atoms";
 import { useTheme } from "@/shared/context/ThemeContext";
 import { useAuth } from "@/shared/context/AuthContext";
+import Image from "next/image";
 
 interface LayoutProps {
   children: ReactNode;
@@ -19,7 +20,9 @@ export function Layout({children,}: LayoutProps) {
   return (
     <div className={`layout ${theme}`}>
       <header className="layout-header">
-        <h1 className="layout-title">Dev Board</h1>
+        <div className="layout-brand">
+          <Image src="/DevBoard.png" alt="Dev Board" width={200} height={75}/>
+        </div>        
 
         <nav className="layout-nav">
           <Button
