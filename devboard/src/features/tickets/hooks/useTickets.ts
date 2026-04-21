@@ -28,10 +28,11 @@ function ticketReducer(state: Ticket[], action: TicketAction): Ticket[] {
   }
 }
 
-export const useTickets = () => {
+export const useTickets = (debouncedSearch?: string) => {
   const [tickets, dispatch] = useReducer(ticketReducer, []);
   const [search, setSearch] = useState("");
-  const deferredSearch = useDeferredValue(search);
+  // Si se pasa debouncedSearch, úsalo; si no, usa useDeferredValue como antes
+  const effectiveSearch = typeof debouncedSearch === "string" ? debouncedSearch : useDeferredValue(search);
 
   const {
     data,
@@ -71,11 +72,11 @@ export const useTickets = () => {
   }, [dispatch]);
 
   const filteredTickets = useMemo(() => {
-    if (!deferredSearch) return tickets;
+    if (!effectiveSearch) return tickets;
     return tickets.filter(ticket =>
-      ticket.title.toLowerCase().includes(deferredSearch.toLowerCase())
+      ticket.title.toLowerCase().includes(effectiveSearch.toLowerCase())
     );
-  }, [tickets, deferredSearch]);
+  }, [tickets, effectiveSearch]);
 
   return {
     tickets,

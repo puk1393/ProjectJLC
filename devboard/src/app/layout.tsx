@@ -24,8 +24,8 @@ export default function RootLayout({
           <Layout>
             <Tabs>
               <Tabs.List>
-                <Tabs.Tab href="/projects"><span className={inter.className}>Proyectos</span></Tabs.Tab>
-                <Tabs.Tab href="/tickets"><span className={inter.className}>Tickets</span></Tabs.Tab>
+                <Tabs.Tab href="/projects"><span>Proyectos</span></Tabs.Tab>
+                <Tabs.Tab href="/tickets"><span>Tickets</span></Tabs.Tab>
                 <Tabs.Tab href="/about"><span>Acerca de</span></Tabs.Tab>
               </Tabs.List>
             </Tabs>
