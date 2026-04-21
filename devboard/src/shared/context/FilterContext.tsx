@@ -1,5 +1,12 @@
-"use client";
-import { createContext, useContext, useState, ReactNode } from "react";
+'use client';
+
+import {
+  createContext,
+  useContext,
+  useState,
+  useMemo,
+  useCallback,
+} from "react";
 
 type FiltersContextType = {
   search: string;
@@ -10,14 +17,33 @@ type FiltersContextType = {
 
   responsible: string;
   setResponsible: (v: string) => void;
+
+  resetFilters: () => void;
+  hasActiveFilters: boolean;
 };
 
 const FiltersContext = createContext<FiltersContextType | null>(null);
 
-export const FiltersProvider = ({ children }: { children: ReactNode }) => {
+export const FiltersProvider = ({
+  children,
+}: {
+  children: React.ReactNode;
+}) => {
   const [search, setSearch] = useState("");
   const [priority, setPriority] = useState("");
   const [responsible, setResponsible] = useState("");
+
+  // 🔄 Reset centralizado (lógica encapsulada)
+  const resetFilters = useCallback(() => {
+    setSearch("");
+    setPriority("");
+    setResponsible("");
+  }, []);
+
+  // 🔍 Estado derivado (lógica de negocio del filtro)
+  const hasActiveFilters = useMemo(() => {
+    return Boolean(search || priority || responsible);
+  }, [search, priority, responsible]);
 
   return (
     <FiltersContext.Provider
@@ -28,6 +54,8 @@ export const FiltersProvider = ({ children }: { children: ReactNode }) => {
         setPriority,
         responsible,
         setResponsible,
+        resetFilters,
+        hasActiveFilters,
       }}
     >
       {children}
@@ -37,6 +65,8 @@ export const FiltersProvider = ({ children }: { children: ReactNode }) => {
 
 export const useFilters = () => {
   const ctx = useContext(FiltersContext);
-  if (!ctx) throw new Error("useFilters must be used inside FiltersProvider");
+  if (!ctx) {
+    throw new Error("useFilters must be used inside FiltersProvider");
+  }
   return ctx;
 };

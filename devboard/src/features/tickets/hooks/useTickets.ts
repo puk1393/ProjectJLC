@@ -4,15 +4,12 @@ import {
   useCallback,
   useEffect,
   useReducer,
-  useState,
   useMemo,
-  useDeferredValue,
 } from "react";
 
 import type { Ticket, TicketAction } from "../types";
 import { useAsync } from "@/shared/hooks/useAsync";
 import { mockTickets } from "@/shared/data/mockData";
-import { useLocalStorage } from "@/shared/hooks/useLocalStorage";
 
 function ticketReducer(state: Ticket[], action: TicketAction): Ticket[] {
   switch (action.type) {
@@ -37,24 +34,8 @@ function ticketReducer(state: Ticket[], action: TicketAction): Ticket[] {
   }
 }
 
-export const useTickets = (debouncedSearch?: string) => {
-  const [mounted, setMounted] = useState(false);
-
-  const [storedTickets, setStoredTickets] =
-    useLocalStorage<Ticket[]>("tickets", []);
-
-  const [tickets, dispatch] = useReducer(
-    ticketReducer,
-    storedTickets
-  );
-
-  const [search, setSearch] = useState("");
-  const deferredSearch = useDeferredValue(search);
-
-  const effectiveSearch =
-    typeof debouncedSearch === "string"
-      ? debouncedSearch
-      : deferredSearch;
+export const useTickets = (search: string) => {
+  const [tickets, dispatch] = useReducer(ticketReducer, []);
 
   const { data, loading, error } = useAsync<Ticket[]>(
     async (signal) => {
@@ -66,21 +47,12 @@ export const useTickets = (debouncedSearch?: string) => {
     []
   );
 
+  // LOAD inicial
   useEffect(() => {
-    setMounted(true);
-  }, []);
-
-  useEffect(() => {
-    if (mounted && tickets.length === 0 && data) {
+    if (data && tickets.length === 0) {
       dispatch({ type: "LOAD", payload: data });
     }
-  }, [data, mounted, tickets.length]);
-
-  useEffect(() => {
-    if (!mounted) return;
-
-    setStoredTickets(tickets);
-  }, [tickets, mounted, setStoredTickets]);
+  }, [data, tickets.length]);
 
   const addTicket = useCallback((ticket: Ticket) => {
     dispatch({ type: "ADD", payload: ticket });
@@ -90,31 +62,25 @@ export const useTickets = (debouncedSearch?: string) => {
     dispatch({ type: "DELETE", payload: id });
   }, []);
 
-  const changeStatus = useCallback(
-    (id: string, status: Ticket["status"]) => {
-      dispatch({
-        type: "CHANGE_STATUS",
-        payload: { id, status },
-      });
-    },
-    []
-  );
+  const changeStatus = useCallback((id: string, status: Ticket["status"]) => {
+    dispatch({
+      type: "CHANGE_STATUS",
+      payload: { id, status },
+    });
+  }, []);
+
 
   const filteredTickets = useMemo(() => {
-    if (!effectiveSearch) return tickets;
+    if (!search) return tickets;
 
     return tickets.filter(t =>
-      t.title
-        .toLowerCase()
-        .includes(effectiveSearch.toLowerCase())
+      t.title.toLowerCase().includes(search.toLowerCase())
     );
-  }, [tickets, effectiveSearch]);
+  }, [tickets, search]);
 
   return {
     tickets,
     filteredTickets,
-    search,
-    setSearch,
     loading,
     error,
     addTicket,

@@ -1,6 +1,13 @@
-'use client'; /* porque este componente renderiza hijos que usan hooks de React y componentes interactivos */
+'use client';
 
-import { useTickets,getTicketsByProjectId,getGroupTicketsByStatus,filterByPriority,filterByResponsible } from "@/features/tickets";
+import {
+  useTickets,
+  getTicketsByProjectId,
+  getGroupTicketsByStatus,
+  filterByPriority,
+  filterByResponsible,
+} from "@/features/tickets";
+
 import { useDebounce } from "@/shared/hooks/useDebounce";
 import { useMemo, Suspense, lazy } from "react";
 import { useFilters } from "@/shared/context/FilterContext";
@@ -15,7 +22,9 @@ export const TicketListContainer = ({
   projectId: string;
 }) => {
 
-
+  /* =========================
+     GLOBAL FILTERS (CONTEXT)
+  ========================= */
   const {
     search,
     setSearch,
@@ -25,16 +34,18 @@ export const TicketListContainer = ({
     setResponsible,
   } = useFilters();
 
-  const debouncedSearch = useDebounce(search, 750);
+  const debouncedSearch = useDebounce(search, 300);
 
   const { filteredTickets, error, changeStatus } =
     useTickets(debouncedSearch);
 
-  const safeProjectId = projectId ?? "1";
+  /* =========================
+     PIPELINE DE FILTROS
+  ========================= */
 
   const projectTickets = useMemo(
-    () => getTicketsByProjectId(filteredTickets, safeProjectId),
-    [filteredTickets, safeProjectId]
+    () => getTicketsByProjectId(filteredTickets, projectId),
+    [filteredTickets, projectId]
   );
 
   const byPriority = useMemo(
@@ -59,6 +70,10 @@ export const TicketListContainer = ({
     [byResponsible]
   );
 
+  /* =========================
+     RESPONSIBLES LIST
+  ========================= */
+
   const responsibles = useMemo(() => {
     return [...new Set(
       projectTickets
@@ -67,15 +82,22 @@ export const TicketListContainer = ({
     )];
   }, [projectTickets]);
 
+  /* =========================
+     ERROR STATE
+  ========================= */
+
   if (error) {
     return <p>Error: {error}</p>;
   }
+
+  /* =========================
+     UI
+  ========================= */
 
   return (
     <>
       <div className="ticket-toolbar">
 
-        {/* SEARCH */}
         <input
           className="ticket-input"
           type="text"
@@ -84,7 +106,6 @@ export const TicketListContainer = ({
           onChange={e => setSearch(e.target.value)}
         />
 
-        {/* PRIORITY */}
         <select
           className="ticket-select"
           value={priority}
@@ -97,7 +118,6 @@ export const TicketListContainer = ({
           <option value="dismissed">Desestimada</option>
         </select>
 
-        {/* RESPONSIBLE */}
         <select
           className="ticket-select"
           value={responsible}
@@ -107,8 +127,8 @@ export const TicketListContainer = ({
           <option value="__none__">Sin responsable</option>
 
           {responsibles.map(r => (
-            <option key={r ?? "unknown"} value={r}>
-              {r}
+            <option key={r ?? "unknown"} value={r ?? ""}>
+              {r ?? "Sin nombre"}
             </option>
           ))}
         </select>
