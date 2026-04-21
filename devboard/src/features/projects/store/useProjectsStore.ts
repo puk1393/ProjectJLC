@@ -1,4 +1,4 @@
-'use client';
+'use client'; /* porque este hook se utiliza en componentes que renderizan hijos que usan hooks de React y componentes interactivos */
 
 import { create } from "zustand";
 import { persist } from "zustand/middleware";

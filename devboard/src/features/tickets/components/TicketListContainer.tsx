@@ -1,33 +1,40 @@
 'use client'; /* porque este componente renderiza hijos que usan hooks de React y componentes interactivos */
 
-import {
-  useTickets,
-  getTicketsByProjectId,
-  getGroupTicketsByStatus,
-  filterByPriority,
-  filterByResponsible,
-} from "@/features/tickets";
-
+import { useTickets,getTicketsByProjectId,getGroupTicketsByStatus,filterByPriority,filterByResponsible } from "@/features/tickets";
 import { useDebounce } from "@/shared/hooks/useDebounce";
-import { useMemo, Suspense, lazy, useState } from "react";
+import { useMemo, Suspense, lazy } from "react";
+import { useFilters } from "@/shared/context/FilterContext";
 
 const TicketListPresentation = lazy(
   () => import("./TicketListPresentation")
 );
 
-export const TicketListContainer = ({ projectId }: { projectId: string }) => {
-  const [search, setSearch] = useState("");
-  const [priority, setPriority] = useState("");
-  const [responsible, setResponsible] = useState("");
+export const TicketListContainer = ({
+  projectId,
+}: {
+  projectId: string;
+}) => {
+
+
+  const {
+    search,
+    setSearch,
+    priority,
+    setPriority,
+    responsible,
+    setResponsible,
+  } = useFilters();
 
   const debouncedSearch = useDebounce(search, 750);
 
   const { filteredTickets, error, changeStatus } =
     useTickets(debouncedSearch);
 
+  const safeProjectId = projectId ?? "1";
+
   const projectTickets = useMemo(
-    () => getTicketsByProjectId(filteredTickets, projectId),
-    [filteredTickets, projectId]
+    () => getTicketsByProjectId(filteredTickets, safeProjectId),
+    [filteredTickets, safeProjectId]
   );
 
   const byPriority = useMemo(
@@ -39,9 +46,7 @@ export const TicketListContainer = ({ projectId }: { projectId: string }) => {
     if (!responsible) return byPriority;
 
     if (responsible === "__none__") {
-      return byPriority.filter(
-        t => !t.responsible
-      );
+      return byPriority.filter(t => !t.responsible);
     }
 
     return byPriority.filter(
@@ -102,7 +107,7 @@ export const TicketListContainer = ({ projectId }: { projectId: string }) => {
           <option value="__none__">Sin responsable</option>
 
           {responsibles.map(r => (
-            <option key={r} value={r}>
+            <option key={r ?? "unknown"} value={r}>
               {r}
             </option>
           ))}
