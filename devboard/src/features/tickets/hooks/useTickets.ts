@@ -29,7 +29,18 @@ function ticketReducer(state: Ticket[], action: TicketAction): Ticket[] {
 }
 
 export const useTickets = (debouncedSearch?: string) => {
-  const [tickets, dispatch] = useReducer(ticketReducer, []);
+  // Inicializa tickets desde localStorage si existe, si no usa []
+  const [tickets, dispatch] = useReducer(ticketReducer, [], () => {
+    if (typeof window !== "undefined") {
+      const stored = localStorage.getItem("tickets");
+      if (stored) {
+        try {
+          return JSON.parse(stored);
+        } catch {}
+      }
+    }
+    return [];
+  });
   const [search, setSearch] = useState("");
   // Si se pasa debouncedSearch, úsalo; si no, usa useDeferredValue como antes
   const effectiveSearch = typeof debouncedSearch === "string" ? debouncedSearch : useDeferredValue(search);
@@ -51,13 +62,22 @@ export const useTickets = (debouncedSearch?: string) => {
   );
 
   useEffect(() => {
-    if (data) {
+    // Solo cargar mockTickets si no hay nada en localStorage
+    if ((!tickets || tickets.length === 0) && data) {
       dispatch({
         type: "LOAD",
         payload: data,
       });
     }
+    // eslint-disable-next-line
   }, [data]);
+
+  // Persistir tickets en localStorage cada vez que cambian
+  useEffect(() => {
+    if (typeof window !== "undefined") {
+      localStorage.setItem("tickets", JSON.stringify(tickets));
+    }
+  }, [tickets]);
 
   const addTicket = useCallback((ticket: Ticket) => {
     dispatch({ type: "ADD", payload: ticket });

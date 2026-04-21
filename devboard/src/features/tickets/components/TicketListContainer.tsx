@@ -8,9 +8,9 @@ const TicketListPresentation = lazy(() => import("./TicketListPresentation"));
 export const TicketListContainer = ({ projectId }: { projectId: string }) => {
   const [search, setSearch] = useState("");
   const debouncedSearch = useDebounce(search, 750);
-  const { filteredTickets, error } = useTickets(debouncedSearch);
+  const { filteredTickets, error, changeStatus } = useTickets(debouncedSearch);
 
-  const filtered = useMemo(() => getTicketsByProjectId(filteredTickets, projectId),[filteredTickets, projectId]);
+  const filtered = useMemo(() => getTicketsByProjectId(filteredTickets, projectId), [filteredTickets, projectId]);
   const grouped = useMemo(() => getGroupTicketsByStatus(filtered), [filtered]);
 
   if (error) {
@@ -27,7 +27,7 @@ export const TicketListContainer = ({ projectId }: { projectId: string }) => {
         className="ticket-search-input"
       />
       <Suspense fallback={<div>Cargando lista de tickets...</div>}>
-        <TicketListPresentation grouped={grouped} />
+        <TicketListPresentation grouped={grouped} changeStatus={changeStatus} />
       </Suspense>
     </>
   );

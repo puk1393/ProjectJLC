@@ -4,15 +4,16 @@ import { memo } from "react";
 
 interface TicketListProps {  
   grouped: GroupedTickets;
+  changeStatus: (id: string, status: string) => void;
 }
 
-const TicketListPresentation = memo(function TicketListPresentation({ grouped }: TicketListProps) {
+const TicketListPresentation = memo(function TicketListPresentation({ grouped, changeStatus }: TicketListProps) {
   return (
     <div className="ticket-list">
-      <TicketColumn title="BACKLOG" tickets={grouped.backlog}/>
-      <TicketColumn title="EN PROGRESO" tickets={grouped.inProgress} />
-      <TicketColumn title="EN REVISIÓN" tickets={grouped.underReview} />
-      <TicketColumn title="COMPLETADO" tickets={grouped.done} />
+      <TicketColumn title="BACKLOG" tickets={grouped.backlog} changeStatus={changeStatus}/>
+      <TicketColumn title="EN PROGRESO" tickets={grouped.inProgress} changeStatus={changeStatus}/>
+      <TicketColumn title="EN REVISIÓN" tickets={grouped.underReview} changeStatus={changeStatus}/>
+      <TicketColumn title="COMPLETADO" tickets={grouped.done} changeStatus={changeStatus}/>
     </div>
   );
 });

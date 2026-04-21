@@ -7,6 +7,7 @@ import type { Ticket } from "@/features/tickets";
 
 interface TicketCardProps {
   ticket: Ticket;
+  changeStatus: (id: string, status: string) => void;
 }
 
 const priorityVariantMap = {
@@ -16,7 +17,26 @@ const priorityVariantMap = {
   dismissed: "default"
 } as const;
 
-const TicketCardComponent: FC<TicketCardProps> = ({ ticket }) => {
+const statusOrder = ["backlog", "in-progress", "under-review", "done"];
+
+const statusOptions = [
+  { value: "backlog", label: "Backlog" },
+  { value: "in-progress", label: "En progreso" },
+  { value: "under-review", label: "En revisión" },
+  { value: "done", label: "Completado" },
+];
+
+const TicketCardComponent: FC<TicketCardProps> = ({ ticket, changeStatus }) => {
+  const [selectedStatus, setSelectedStatus] = React.useState(ticket.status ?? "backlog");
+
+  const handleStatusChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
+    const newStatus = e.target.value;
+    setSelectedStatus(newStatus);
+    if (newStatus !== ticket.status) {
+      changeStatus(ticket.id, newStatus);
+    }
+  };
+
   return (
     <Card>
       <h4>{ticket.title}</h4>
@@ -27,6 +47,14 @@ const TicketCardComponent: FC<TicketCardProps> = ({ ticket }) => {
       <br></br>
       <span>Responsable: {ticket.responsible}</span>
 
+      <label style={{ display: "block", marginTop: 8 }}>
+        Estado:
+        <select value={selectedStatus} onChange={handleStatusChange} style={{ marginLeft: 8 }}>
+          {statusOptions.map(opt => (
+            <option key={opt.value} value={opt.value}>{opt.label}</option>
+          ))}
+        </select>
+      </label>
     </Card>
   );
 };

@@ -36,7 +36,7 @@ export const mockTickets: Ticket[] = [
     priority: "low",
     responsible: "Jeremy",
     status: "backlog",
-    label: "test1"   
+    label: "test3"   
   },
   {
     id: "2",
