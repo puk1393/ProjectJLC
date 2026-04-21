@@ -500,3 +500,84 @@ body {
 .ticket-input:hover {
   border-color: #9ca3af;
 }
+
+/* Fondo general centrado */
+.projects-shell {
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  padding: 24px;
+  background: #f1f5f9;
+}
+
+/* Contenedor con ancho limitado */
+.projects-container {
+  width: 100%;
+  max-width: 1100px; /* 👈 clave: no tan ancho */
+  display: grid;
+  grid-template-columns: 220px 1fr;
+  gap: 20px;
+}
+
+/* SIDEBAR */
+.projects-sidebar {
+  background: #0f172a;
+  color: white;
+  padding: 16px;
+  border-radius: 12px;
+  height: fit-content;
+}
+
+.projects-sidebar-header h2 {
+  margin: 0;
+  font-size: 16px;
+}
+
+.projects-sidebar-header p {
+  font-size: 12px;
+  opacity: 0.6;
+}
+
+.projects-nav {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin-top: 16px;
+}
+
+.projects-link {
+  color: white;
+  text-decoration: none;
+  padding: 8px;
+  border-radius: 8px;
+  font-size: 14px;
+  transition: 0.2s;
+}
+
+.projects-link:hover {
+  background: rgba(255, 255, 255, 0.1);
+}
+
+/* MAIN */
+.projects-main {
+  background: white;
+  border-radius: 12px;
+  padding: 20px;
+  min-height: 500px;
+  box-shadow: 0 10px 25px rgba(0,0,0,0.05);
+}
+
+.projects-header h1 {
+  margin: 0;
+  font-size: 22px;
+}
+
+.projects-header p {
+  margin-top: 4px;
+  font-size: 13px;
+  color: #64748b;
+}
+
+.projects-content {
+  margin-top: 20px;
+}
