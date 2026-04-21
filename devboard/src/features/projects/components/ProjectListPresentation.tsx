@@ -4,6 +4,7 @@ import type { Project } from "@/features/projects";
 import { useAddProjectForm } from "@/features/projects";
 import { Button, Input } from "@/shared/ui/atoms";
 import { Modal } from "@/shared/ui/molecules";
+import Link from "next/dist/client/link";
 import { memo } from "react";
 
 interface ProjectListProps {
@@ -36,6 +37,7 @@ export const ProjectListPresentation = memo(function ProjectListPresentation({ p
             <th className="project-th">Descripción</th>
             <th className="project-th">Tickets</th>
             <th className="project-th">Progreso</th>
+            <th className="project-th">Detalle</th>
           </tr>
         </thead>
 
@@ -57,6 +59,12 @@ export const ProjectListPresentation = memo(function ProjectListPresentation({ p
               <td className="project-td">
                 {project.progress}
               </td>
+
+              <td className="project-td">
+                <Link href={`/tickets?project=${project.id}`} className="project-link-btn">
+                  Ver Tickets ({project.tickets})
+                </Link>
+              </td>              
             </tr>
           ))}
         </tbody>

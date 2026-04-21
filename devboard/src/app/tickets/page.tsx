@@ -11,7 +11,15 @@ export const metadata: Metadata = {
   },
 };
 
-export default async function TicketsPage() {
+export default async function TicketsPage({searchParams}: {
+  searchParams: Promise<{
+    project?: string;
+  }>;
+  }) {
   await new Promise(r => setTimeout(r, 2000));
-  return <TicketListContainer projectId="1" />;
+  const params = await searchParams;
+
+  const projectId = params.project ?? "1";
+
+  return (<TicketListContainer projectId={projectId} />);
 }

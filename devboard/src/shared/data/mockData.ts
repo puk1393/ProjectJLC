@@ -6,7 +6,7 @@ export const mockProjects: Project[] = [
     id: "1",
     name: "SalesForce",
     description: "Ventas en linea",
-    tickets: 100,
+    tickets: 6,
     progress: "70%",
     status: "active"
   },
@@ -22,7 +22,7 @@ export const mockProjects: Project[] = [
     id: "3",
     name: "Instagram",
     description: "Red social",
-    tickets: 2,
+    tickets: 4,
     progress: "100%",
     status: "active"
   }   
@@ -39,7 +39,7 @@ export const mockTickets: Ticket[] = [
   },
   {
     id: "2",
-    title: "Pantalla de proyectos",
+    title: "Carrito de compras",
     projectId: "1",
     priority: "high",
     responsible: "Camilo",
@@ -47,7 +47,7 @@ export const mockTickets: Ticket[] = [
   },
   {
     id: "3",
-    title: "Pantalla de Tickets",
+    title: "Devoluciones",
     projectId: "1",
     priority: "dismissed",
     responsible: "Pedro",
@@ -63,7 +63,7 @@ export const mockTickets: Ticket[] = [
   },  
   {
     id: "5",
-    title: "Configuración de Temas",
+    title: "Ofertas",
     projectId: "1",
     priority: "high",
     status: "done"
@@ -75,4 +75,32 @@ export const mockTickets: Ticket[] = [
     priority: "high",
     status: "done"
   },    
+  {
+    id: "7",
+    title: "Login",
+    projectId: "3",
+    priority: "high",
+    status: "done"
+  },    
+  {
+    id: "8",
+    title: "Mas vistos",
+    projectId: "3",
+    priority: "high",
+    status: "under-review"
+  },    
+  {
+    id: "9",
+    title: "Reels",
+    projectId: "3",
+    priority: "high",
+    status: "in-progress"
+  },    
+  {
+    id: "10",
+    title: "Pantalla principal",
+    projectId: "3",
+    priority: "high",
+    status: "backlog"
+  }    
 ];

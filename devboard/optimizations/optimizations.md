@@ -11,3 +11,11 @@ Sin utilizar useMemo
 Utilizando useMemo
 ![Console](/ProjectJLC/devboard/optimizations/image-1.png)
 ![React Dev Tools Profiler](/ProjectJLC/devboard/optimizations/image-3.png)
+
+Optimizaciones específicas de Next.js
+1) Se reemplazo <img> por <Image src="/DevBoard.png" alt="DevBoard" width={200} height={75}/>
+2) Implementación de Metadata API
+3) Loading.tsx en las rutas principales con Skeleton
+4) Testing y calidad
+
+En conclusión, las optimizaciones aplicadas en DevBoard: desde el uso de useMemo hasta la integración de la Metadata API y pruebas automatizadas, garantizan un proyecto más eficiente, escalable y preparado para producción.
