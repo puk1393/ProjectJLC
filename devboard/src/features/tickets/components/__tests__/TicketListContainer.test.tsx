@@ -1,6 +1,7 @@
 import { render, screen } from "@testing-library/react";
 import { describe, it, expect, vi } from "vitest";
 import { TicketListContainer } from "../TicketListContainer";
+import { TestProviders } from "@/features/tickets";
 
 const mockUseTickets = vi.fn();
 
@@ -22,7 +23,11 @@ describe("TicketListContainer", () => {
       changeStatus: vi.fn(),
     });
 
-    render(<TicketListContainer projectId="A" />);
+    render(
+      <TestProviders>
+        <TicketListContainer projectId="A" />
+      </TestProviders>
+    );
 
     expect(
       await screen.findByText("Cargando lista de tickets...")
@@ -37,7 +42,11 @@ describe("TicketListContainer", () => {
       changeStatus: vi.fn(),
     });
 
-    render(<TicketListContainer projectId="A" />);
+    render(
+      <TestProviders>
+        <TicketListContainer projectId="A" />
+      </TestProviders>
+    );
 
     expect(
       screen.getByText(/error cargando/i)
@@ -61,7 +70,11 @@ describe("TicketListContainer", () => {
       changeStatus: vi.fn(),
     });
 
-    render(<TicketListContainer projectId="A" />);
+    render(
+      <TestProviders>
+        <TicketListContainer projectId="A" />
+      </TestProviders>
+    );
 
     expect(
       await screen.findByText("Bug login")

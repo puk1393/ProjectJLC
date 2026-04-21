@@ -4,3 +4,4 @@ export { TicketListContainer } from "./components/TicketListContainer";
 export { useTickets } from "./hooks/useTickets";
 export { getTicketsByProjectId, getGroupTicketsByStatus, filterByPriority, filterByResponsible } from "./utils/ticketFilters";
 export type { Ticket, TicketPriority, GroupedTickets } from "./types";
+export { TestProviders } from "./utils/test-utils";

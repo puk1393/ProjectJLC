@@ -56,10 +56,19 @@ export const useTickets = (debouncedSearch?: string) => {
     const stored = localStorage.getItem("tickets");
 
     if (stored) {
-      dispatch({
-        type: "LOAD",
-        payload: JSON.parse(stored),
-      });
+      try {
+        const parsed = JSON.parse(stored);
+
+        if (Array.isArray(parsed)) {
+          dispatch({
+            type: "LOAD",
+            payload: parsed,
+          });
+        }
+      } catch (error) {
+        console.warn("Invalid localStorage data ignored");
+        localStorage.removeItem("tickets");
+      }
     }
   }, []);
 
