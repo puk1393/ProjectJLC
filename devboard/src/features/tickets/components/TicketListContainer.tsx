@@ -10,11 +10,7 @@ export const TicketListContainer = ({ projectId }: { projectId: string }) => {
   const debouncedSearch = useDebounce(search, 750);
   const { filteredTickets, error } = useTickets(debouncedSearch);
 
-  // Solo filtra por proyecto, el filtrado por texto ya lo hace useTickets
-  const filtered = useMemo(
-    () => getTicketsByProjectId(filteredTickets, projectId),
-    [filteredTickets, projectId]
-  );
+  const filtered = useMemo(() => getTicketsByProjectId(filteredTickets, projectId),[filteredTickets, projectId]);
   const grouped = useMemo(() => getGroupTicketsByStatus(filtered), [filtered]);
 
   if (error) {
