@@ -35,7 +35,8 @@ export const mockTickets: Ticket[] = [
     projectId: "1",
     priority: "low",
     responsible: "Jeremy",
-    status: "backlog"    
+    status: "backlog",
+    label: "test1"   
   },
   {
     id: "2",
@@ -43,7 +44,8 @@ export const mockTickets: Ticket[] = [
     projectId: "1",
     priority: "high",
     responsible: "Camilo",
-    status: "in-progress"
+    status: "in-progress",
+    label: "test2"   
   },
   {
     id: "3",
@@ -51,7 +53,8 @@ export const mockTickets: Ticket[] = [
     projectId: "1",
     priority: "dismissed",
     responsible: "Pedro",
-    status: "under-review"
+    status: "under-review",
+    label: "test3"   
     
   },
   {
@@ -80,27 +83,35 @@ export const mockTickets: Ticket[] = [
     title: "Login",
     projectId: "3",
     priority: "high",
-    status: "done"
+    status: "done",
+    responsible: "Pedro",
+    label: "test"
   },    
   {
     id: "8",
     title: "Mas vistos",
     projectId: "3",
     priority: "high",
-    status: "under-review"
+    status: "under-review",
+    responsible: "Raquel",
+    label: "test"
   },    
   {
     id: "9",
     title: "Reels",
     projectId: "3",
     priority: "high",
-    status: "in-progress"
+    status: "in-progress",
+    responsible: "Sonia",
+    label: "test"
   },    
   {
     id: "10",
     title: "Pantalla principal",
     projectId: "3",
     priority: "high",
-    status: "backlog"
+    status: "backlog",
+    responsible: "Paco",
+    label: "test"
   }    
 ];

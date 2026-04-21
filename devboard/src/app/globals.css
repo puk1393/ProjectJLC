@@ -446,3 +446,16 @@ body {
 .loading-about-line.short{
   width:60%;
 }
+
+.project-link-btn {
+  padding: 6px 10px;
+  border-radius: 8px;
+  background: #2563eb;
+  color: white;
+  text-decoration: none;
+  font-size: 14px;
+}
+
+.project-link-btn:hover {
+  opacity: .9;
+}

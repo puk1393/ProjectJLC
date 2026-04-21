@@ -22,16 +22,11 @@ const TicketCardComponent: FC<TicketCardProps> = ({ ticket }) => {
       <h4>{ticket.title}</h4>
 
       <Badge variant={priorityVariantMap[ticket.priority ?? "dismissed"]}>{ticket.priority}</Badge>
+      <br></br>      
+      <span>Etiqueta: {ticket.label}</span>
+      <br></br>
+      <span>Responsable: {ticket.responsible}</span>
 
-      <br />
-
-      <Button variant="danger" size="md" onClick={() => alert("Hola etapa anterior")}>
-        Etapa Anterior
-      </Button>
-
-      <Button variant="primary" size="lg" onClick={() => alert("Hola siguiente etapa")}>
-        Siguiente Etapa
-      </Button>
     </Card>
   );
 };
