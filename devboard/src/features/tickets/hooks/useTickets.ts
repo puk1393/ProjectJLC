@@ -1,9 +1,17 @@
-'use client'; // Necesario porque este hook usa useReducer y otros hooks de React
+'use client'; /* porque este hook se utiliza en componentes que renderizan hijos que usan hooks de React y componentes interactivos */
 
-import { useCallback, useEffect, useReducer, useState, useDeferredValue, useMemo } from "react";
+import {
+  useCallback,
+  useEffect,
+  useReducer,
+  useState,
+  useMemo,
+  useDeferredValue,
+} from "react";
+
 import type { Ticket, TicketAction } from "../types";
 import { useAsync } from "@/shared/hooks/useAsync";
-import { mockTickets } from '@/shared/data/mockData';
+import { mockTickets } from "@/shared/data/mockData";
 
 function ticketReducer(state: Ticket[], action: TicketAction): Ticket[] {
   switch (action.type) {
@@ -14,13 +22,13 @@ function ticketReducer(state: Ticket[], action: TicketAction): Ticket[] {
       return [...state, action.payload];
 
     case "DELETE":
-      return state.filter(ticket => ticket.id !== action.payload);
+      return state.filter(t => t.id !== action.payload);
 
     case "CHANGE_STATUS":
-      return state.map(ticket =>
-        ticket.id === action.payload.id
-          ? { ...ticket, status: action.payload.status }
-          : ticket
+      return state.map(t =>
+        t.id === action.payload.id
+          ? { ...t, status: action.payload.status }
+          : t
       );
 
     default:
@@ -29,77 +37,71 @@ function ticketReducer(state: Ticket[], action: TicketAction): Ticket[] {
 }
 
 export const useTickets = (debouncedSearch?: string) => {
-  // Inicializa tickets desde localStorage si existe, si no usa []
-  const [tickets, dispatch] = useReducer(ticketReducer, [], () => {
-    if (typeof window !== "undefined") {
-      const stored = localStorage.getItem("tickets");
-      if (stored) {
-        try {
-          return JSON.parse(stored);
-        } catch {}
-      }
-    }
-    return [];
-  });
+  const [mounted, setMounted] = useState(false);
+
+  const [tickets, dispatch] = useReducer(ticketReducer, []);
+
   const [search, setSearch] = useState("");
 
   const deferredSearch = useDeferredValue(search);
 
   const effectiveSearch =
-  typeof debouncedSearch === "string"
-    ? debouncedSearch
-    : deferredSearch;
+    typeof debouncedSearch === "string"
+      ? debouncedSearch
+      : deferredSearch;
 
-  const {
-    data,
-    loading,
-    error,
-  } = useAsync<Ticket[]>(
+  useEffect(() => {
+    setMounted(true);
+
+    const stored = localStorage.getItem("tickets");
+
+    if (stored) {
+      dispatch({
+        type: "LOAD",
+        payload: JSON.parse(stored),
+      });
+    }
+  }, []);
+
+  const { data, loading, error } = useAsync<Ticket[]>(
     async (signal) => {
-      if (signal.aborted)
-        throw new DOMException(
-          "Cancelled",
-          "AbortError"
-        );
+      if (signal.aborted) {
+        throw new DOMException("Cancelled", "AbortError");
+      }
       return mockTickets;
     },
     []
   );
 
   useEffect(() => {
-    // Solo cargar mockTickets si no hay nada en localStorage
-    if ((!tickets || tickets.length === 0) && data) {
-      dispatch({
-        type: "LOAD",
-        payload: data,
-      });
+    if (mounted && tickets.length === 0 && data) {
+      dispatch({ type: "LOAD", payload: data });
     }
-    // eslint-disable-next-line
-  }, [data]);
+  }, [data, mounted, tickets.length]);
 
-  // Persistir tickets en localStorage cada vez que cambian
   useEffect(() => {
-    if (typeof window !== "undefined") {
-      localStorage.setItem("tickets", JSON.stringify(tickets));
-    }
-  }, [tickets]);
+    if (!mounted) return;
+
+    localStorage.setItem("tickets", JSON.stringify(tickets));
+  }, [tickets, mounted]);
 
   const addTicket = useCallback((ticket: Ticket) => {
     dispatch({ type: "ADD", payload: ticket });
-  }, [dispatch]);
+  }, []);
 
   const deleteTicket = useCallback((id: string) => {
     dispatch({ type: "DELETE", payload: id });
-  }, [dispatch]);
+  }, []);
 
   const changeStatus = useCallback((id: string, status: Ticket["status"]) => {
     dispatch({ type: "CHANGE_STATUS", payload: { id, status } });
-  }, [dispatch]);
+  }, []);
 
   const filteredTickets = useMemo(() => {
     if (!effectiveSearch) return tickets;
-    return tickets.filter(ticket =>
-      ticket.title.toLowerCase().includes(effectiveSearch.toLowerCase())
+
+    return tickets.filter(t =>
+      t.title.toLowerCase().includes(effectiveSearch.toLowerCase())
     );
   }, [tickets, effectiveSearch]);
 
@@ -109,7 +111,7 @@ export const useTickets = (debouncedSearch?: string) => {
     search,
     setSearch,
     loading,
-    error,    
+    error,
     addTicket,
     deleteTicket,
     changeStatus,

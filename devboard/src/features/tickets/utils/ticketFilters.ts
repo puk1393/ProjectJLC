@@ -12,3 +12,13 @@ export const getGroupTicketsByStatus = (tickets: Ticket[]) => {
     done: tickets.filter(t => t.status === "done"),
   };
 };
+
+export const filterByPriority = (tickets: Ticket[], priority: string) => {
+  if (!priority) return tickets;
+  return tickets.filter(t => t.priority === priority);
+};
+
+export const filterByResponsible = (tickets: Ticket[], responsible: string) => {
+  if (!responsible) return tickets;
+  return tickets.filter(t => t.responsible === responsible);
+};

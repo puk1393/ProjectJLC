@@ -51,7 +51,7 @@ export const mockTickets: Ticket[] = [
     id: "3",
     title: "Devoluciones",
     projectId: "1",
-    priority: "dismissed",
+    priority: "medium",
     responsible: "Pedro",
     status: "under-review",
     label: "test3"   
@@ -100,7 +100,7 @@ export const mockTickets: Ticket[] = [
     id: "9",
     title: "Reels",
     projectId: "3",
-    priority: "high",
+    priority: "medium",
     status: "in-progress",
     responsible: "Sonia",
     label: "test"
@@ -109,7 +109,7 @@ export const mockTickets: Ticket[] = [
     id: "10",
     title: "Pantalla principal",
     projectId: "3",
-    priority: "high",
+    priority: "low",
     status: "backlog",
     responsible: "Paco",
     label: "test"

@@ -459,3 +459,44 @@ body {
 .project-link-btn:hover {
   opacity: .9;
 }
+
+.ticket-toolbar {
+  display: flex;
+  gap: 12px;
+  align-items: center;
+  margin-bottom: 16px;
+  flex-wrap: wrap;
+}
+
+.ticket-input {
+  padding: 8px 12px;
+  border: 1px solid #d1d5db;
+  border-radius: 8px;
+  outline: none;
+  min-width: 220px;
+  transition: border 0.2s ease;
+}
+
+.ticket-input:focus {
+  border-color: #2563eb;
+}
+
+.ticket-select {
+  padding: 8px 12px;
+  border: 1px solid #d1d5db;
+  border-radius: 8px;
+  background: white;
+  cursor: pointer;
+  min-width: 180px;
+  transition: border 0.2s ease;
+}
+
+.ticket-select:focus {
+  border-color: #2563eb;
+  outline: none;
+}
+
+.ticket-select:hover,
+.ticket-input:hover {
+  border-color: #9ca3af;
+}
