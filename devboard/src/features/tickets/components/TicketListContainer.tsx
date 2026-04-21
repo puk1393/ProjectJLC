@@ -22,9 +22,6 @@ export const TicketListContainer = ({
   projectId: string;
 }) => {
 
-  /* =========================
-     GLOBAL FILTERS (CONTEXT)
-  ========================= */
   const {
     search,
     setSearch,
@@ -38,10 +35,6 @@ export const TicketListContainer = ({
 
   const { filteredTickets, error, changeStatus } =
     useTickets(debouncedSearch);
-
-  /* =========================
-     PIPELINE DE FILTROS
-  ========================= */
 
   const projectTickets = useMemo(
     () => getTicketsByProjectId(filteredTickets, projectId),
@@ -70,10 +63,6 @@ export const TicketListContainer = ({
     [byResponsible]
   );
 
-  /* =========================
-     RESPONSIBLES LIST
-  ========================= */
-
   const responsibles = useMemo(() => {
     return [...new Set(
       projectTickets
@@ -82,17 +71,9 @@ export const TicketListContainer = ({
     )];
   }, [projectTickets]);
 
-  /* =========================
-     ERROR STATE
-  ========================= */
-
   if (error) {
     return <p>Error: {error}</p>;
   }
-
-  /* =========================
-     UI
-  ========================= */
 
   return (
     <>

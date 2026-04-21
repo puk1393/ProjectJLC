@@ -33,14 +33,12 @@ export const FiltersProvider = ({
   const [priority, setPriority] = useState("");
   const [responsible, setResponsible] = useState("");
 
-  // 🔄 Reset centralizado (lógica encapsulada)
   const resetFilters = useCallback(() => {
     setSearch("");
     setPriority("");
     setResponsible("");
   }, []);
 
-  // 🔍 Estado derivado (lógica de negocio del filtro)
   const hasActiveFilters = useMemo(() => {
     return Boolean(search || priority || responsible);
   }, [search, priority, responsible]);
