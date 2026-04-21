@@ -2,7 +2,7 @@
 
 import React, { FC } from "react";
 import { Card } from "@/shared/ui/molecules";
-import { Badge, Button } from "@/shared/ui/atoms";
+import { Badge } from "@/shared/ui/atoms";
 import type { Ticket } from "@/features/tickets";
 
 interface TicketCardProps {
@@ -16,8 +16,6 @@ const priorityVariantMap = {
   high: "success",
   dismissed: "default"
 } as const;
-
-const statusOrder = ["backlog", "in-progress", "under-review", "done"];
 
 const statusOptions = [
   { value: "backlog", label: "Backlog" },

@@ -42,8 +42,13 @@ export const useTickets = (debouncedSearch?: string) => {
     return [];
   });
   const [search, setSearch] = useState("");
-  // Si se pasa debouncedSearch, úsalo; si no, usa useDeferredValue como antes
-  const effectiveSearch = typeof debouncedSearch === "string" ? debouncedSearch : useDeferredValue(search);
+
+  const deferredSearch = useDeferredValue(search);
+
+  const effectiveSearch =
+  typeof debouncedSearch === "string"
+    ? debouncedSearch
+    : deferredSearch;
 
   const {
     data,
