@@ -8,7 +8,6 @@ export function useLocalStorage<T>(
 ) {
   const [value, setValue] = useState<T>(initialValue);
 
-  // Cargar desde localStorage (solo client)
   useEffect(() => {
     try {
       const stored = localStorage.getItem(key);
@@ -22,7 +21,6 @@ export function useLocalStorage<T>(
     }
   }, [key]);
 
-  // Guardar en localStorage cuando cambie el estado
   useEffect(() => {
     try {
       localStorage.setItem(key, JSON.stringify(value));
