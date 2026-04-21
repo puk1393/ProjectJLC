@@ -1,4 +1,4 @@
-'use client'; /* porque este hook se utiliza en componentes que renderizan hijos que usan hooks de React y componentes interactivos */
+'use client';
 
 import {
   useCallback,
@@ -12,6 +12,7 @@ import {
 import type { Ticket, TicketAction } from "../types";
 import { useAsync } from "@/shared/hooks/useAsync";
 import { mockTickets } from "@/shared/data/mockData";
+import { useLocalStorage } from "@/shared/hooks/useLocalStorage";
 
 function ticketReducer(state: Ticket[], action: TicketAction): Ticket[] {
   switch (action.type) {
@@ -39,38 +40,21 @@ function ticketReducer(state: Ticket[], action: TicketAction): Ticket[] {
 export const useTickets = (debouncedSearch?: string) => {
   const [mounted, setMounted] = useState(false);
 
-  const [tickets, dispatch] = useReducer(ticketReducer, []);
+  const [storedTickets, setStoredTickets] =
+    useLocalStorage<Ticket[]>("tickets", []);
+
+  const [tickets, dispatch] = useReducer(
+    ticketReducer,
+    storedTickets
+  );
 
   const [search, setSearch] = useState("");
-
   const deferredSearch = useDeferredValue(search);
 
   const effectiveSearch =
     typeof debouncedSearch === "string"
       ? debouncedSearch
       : deferredSearch;
-
-  useEffect(() => {
-    setMounted(true);
-
-    const stored = localStorage.getItem("tickets");
-
-    if (stored) {
-      try {
-        const parsed = JSON.parse(stored);
-
-        if (Array.isArray(parsed)) {
-          dispatch({
-            type: "LOAD",
-            payload: parsed,
-          });
-        }
-      } catch (error) {
-        console.warn("Invalid localStorage data ignored");
-        localStorage.removeItem("tickets");
-      }
-    }
-  }, []);
 
   const { data, loading, error } = useAsync<Ticket[]>(
     async (signal) => {
@@ -83,6 +67,10 @@ export const useTickets = (debouncedSearch?: string) => {
   );
 
   useEffect(() => {
+    setMounted(true);
+  }, []);
+
+  useEffect(() => {
     if (mounted && tickets.length === 0 && data) {
       dispatch({ type: "LOAD", payload: data });
     }
@@ -91,8 +79,8 @@ export const useTickets = (debouncedSearch?: string) => {
   useEffect(() => {
     if (!mounted) return;
 
-    localStorage.setItem("tickets", JSON.stringify(tickets));
-  }, [tickets, mounted]);
+    setStoredTickets(tickets);
+  }, [tickets, mounted, setStoredTickets]);
 
   const addTicket = useCallback((ticket: Ticket) => {
     dispatch({ type: "ADD", payload: ticket });
@@ -102,15 +90,23 @@ export const useTickets = (debouncedSearch?: string) => {
     dispatch({ type: "DELETE", payload: id });
   }, []);
 
-  const changeStatus = useCallback((id: string, status: Ticket["status"]) => {
-    dispatch({ type: "CHANGE_STATUS", payload: { id, status } });
-  }, []);
+  const changeStatus = useCallback(
+    (id: string, status: Ticket["status"]) => {
+      dispatch({
+        type: "CHANGE_STATUS",
+        payload: { id, status },
+      });
+    },
+    []
+  );
 
   const filteredTickets = useMemo(() => {
     if (!effectiveSearch) return tickets;
 
     return tickets.filter(t =>
-      t.title.toLowerCase().includes(effectiveSearch.toLowerCase())
+      t.title
+        .toLowerCase()
+        .includes(effectiveSearch.toLowerCase())
     );
   }, [tickets, effectiveSearch]);
 
