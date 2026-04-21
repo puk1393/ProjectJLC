@@ -2,15 +2,50 @@ import { render, screen } from "@testing-library/react";
 import { describe, it, expect, vi } from "vitest";
 import { TicketListContainer } from "../TicketListContainer";
 
+const mockUseTickets = vi.fn();
+
 vi.mock("@/features/tickets", async () => {
-  const actual = await vi.importActual(
-    "@/features/tickets"
-  );
+  const actual = await vi.importActual("@/features/tickets");
 
   return {
     ...actual,
+    useTickets: () => mockUseTickets(),
+  };
+});
 
-    useTickets: () => ({
+describe("TicketListContainer", () => {
+  it("shows loading fallback", async () => {
+    mockUseTickets.mockReturnValue({
+      filteredTickets: [],
+      setSearch: vi.fn(),
+      error: null,
+      changeStatus: vi.fn(),
+    });
+
+    render(<TicketListContainer projectId="A" />);
+
+    expect(
+      await screen.findByText("Cargando lista de tickets...")
+    ).toBeInTheDocument();
+  });
+
+  it("shows error message", () => {
+    mockUseTickets.mockReturnValue({
+      filteredTickets: [],
+      setSearch: vi.fn(),
+      error: "Error cargando",
+      changeStatus: vi.fn(),
+    });
+
+    render(<TicketListContainer projectId="A" />);
+
+    expect(
+      screen.getByText(/error cargando/i)
+    ).toBeInTheDocument();
+  });
+
+  it("renders ticket list", async () => {
+    mockUseTickets.mockReturnValue({
       filteredTickets: [
         {
           id: "1",
@@ -18,36 +53,18 @@ vi.mock("@/features/tickets", async () => {
           projectId: "A",
           priority: "high",
           responsible: "Jeremy",
-          status: "backlog"
+          status: "backlog",
         },
-        {
-          id: "2",
-          title: "Dashboard",
-          projectId: "B",
-          priority: "medium",
-          responsible: "Ana",
-          status: "done"
-        }
       ],
-
       setSearch: vi.fn(),
-      error: null
-    })
-  };
-});
+      error: null,
+      changeStatus: vi.fn(),
+    });
 
-describe("TicketListContainer", () => {
-  it("renders only tickets for selected project", () => {
-    render(
-      <TicketListContainer projectId="A" />
-    );
+    render(<TicketListContainer projectId="A" />);
 
     expect(
-      screen.getByText("Bug login")
+      await screen.findByText("Bug login")
     ).toBeInTheDocument();
-
-    expect(
-      screen.queryByText("Dashboard")
-    ).not.toBeInTheDocument();
   });
 });

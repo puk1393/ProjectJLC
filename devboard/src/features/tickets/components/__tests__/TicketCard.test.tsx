@@ -1,40 +1,78 @@
-//prueba comportamiento aislado del componente.
 import { render, screen, fireEvent } from "@testing-library/react";
 import { describe, it, expect, vi } from "vitest";
 import { TicketCard } from "../TicketCard";
 import type { Ticket } from "@/features/tickets";
 
 describe("TicketCard", () => {
-    const mockTicket: Ticket = {
+  const ticket: Ticket = {
     id: "1",
     title: "Error en login",
     projectId: "1",
     priority: "high",
     responsible: "Jeremy",
-    status: "backlog"
-    };
+    label: "Bug",
+    status: "backlog",
+  };
 
-  it("renders ticket title, priority and status", () => {
-    render(<TicketCard ticket={mockTicket} />);
+  it("renders ticket information", () => {
+    render(
+      <TicketCard
+        ticket={ticket}
+        changeStatus={vi.fn()}
+      />
+    );
 
     expect(screen.getByText("Error en login")).toBeInTheDocument();
     expect(screen.getByText("high")).toBeInTheDocument();
+    expect(screen.getByText("Etiqueta: Bug")).toBeInTheDocument();
+    expect(screen.getByText("Responsable: Jeremy")).toBeInTheDocument();
   });
 
-  it("calls alert when clicking buttons", () => {
-    const alertMock = vi.spyOn(window, "alert").mockImplementation(() => {});
+  it("shows current selected status", () => {
+    render(
+      <TicketCard
+        ticket={ticket}
+        changeStatus={vi.fn()}
+      />
+    );
 
-    render(<TicketCard ticket={mockTicket} />);
+    expect(screen.getByDisplayValue("Backlog")).toBeInTheDocument();
+  });
 
-    const prevButton = screen.getByText("Etapa Anterior");
-    const nextButton = screen.getByText("Siguiente Etapa");
+  it("calls changeStatus when status changes", () => {
+    const changeStatus = vi.fn();
 
-    fireEvent.click(prevButton);
-    expect(alertMock).toHaveBeenCalledWith("Hola etapa anterior");
+    render(
+      <TicketCard
+        ticket={ticket}
+        changeStatus={changeStatus}
+      />
+    );
 
-    fireEvent.click(nextButton);
-    expect(alertMock).toHaveBeenCalledWith("Hola siguiente etapa");
+    fireEvent.change(screen.getByRole("combobox"), {
+      target: { value: "in-progress" },
+    });
 
-    alertMock.mockRestore();
+    expect(changeStatus).toHaveBeenCalledWith(
+      "1",
+      "in-progress"
+    );
+  });
+
+  it("does not call changeStatus when same status selected", () => {
+    const changeStatus = vi.fn();
+
+    render(
+      <TicketCard
+        ticket={ticket}
+        changeStatus={changeStatus}
+      />
+    );
+
+    fireEvent.change(screen.getByRole("combobox"), {
+      target: { value: "backlog" },
+    });
+
+    expect(changeStatus).not.toHaveBeenCalled();
   });
 });

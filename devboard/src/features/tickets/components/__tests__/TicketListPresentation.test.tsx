@@ -1,7 +1,7 @@
 // prueba integración entre lista, columnas y tickets renderizados.
 import { render, screen } from "@testing-library/react";
 import { describe, it, expect } from "vitest";
-import { TicketListPresentation } from "../TicketListPresentation";
+import TicketListPresentation from "../TicketListPresentation";
 import type { GroupedTickets } from "@/features/tickets";
 
 describe("TicketListPresentation", () => {

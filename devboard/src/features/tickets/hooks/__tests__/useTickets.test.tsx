@@ -1,8 +1,12 @@
 import { renderHook, waitFor, act } from "@testing-library/react";
-import { describe, it, expect } from "vitest";
+import { describe, it, expect, beforeEach } from "vitest";
 import { useTickets } from "../useTickets";
 
 describe("useTickets", () => {
+  beforeEach(() => {
+    localStorage.clear();
+  });
+
   it("loads mock tickets", async () => {
     const { result } = renderHook(() => useTickets());
 
@@ -28,7 +32,7 @@ describe("useTickets", () => {
         projectId: "1",
         priority: "high",
         responsible: "Jeremy",
-        status: "backlog"
+        status: "backlog",
       });
     });
 
@@ -73,5 +77,72 @@ describe("useTickets", () => {
     );
 
     expect(updated?.status).toBe("done");
+  });
+
+  it("loads tickets from localStorage if present", async () => {
+    localStorage.setItem(
+      "tickets",
+      JSON.stringify([
+        {
+          id: "500",
+          title: "Stored ticket",
+          projectId: "1",
+          priority: "high",
+          responsible: "Jeremy",
+          status: "backlog",
+        },
+      ])
+    );
+
+    const { result } = renderHook(() => useTickets());
+
+    await waitFor(() => {
+      expect(result.current.loading).toBe(false);
+    });
+
+    expect(result.current.tickets[0].id).toBe("500");
+    expect(result.current.tickets[0].title).toBe("Stored ticket");
+  });
+
+  it("ignores invalid localStorage JSON", async () => {
+    localStorage.setItem("tickets", "INVALID_JSON");
+
+    const { result } = renderHook(() => useTickets());
+
+    await waitFor(() => {
+      expect(result.current.loading).toBe(false);
+    });
+
+    expect(result.current.tickets.length).toBeGreaterThan(0);
+  });
+
+  it("filters tickets by search text", async () => {
+    const { result } = renderHook(() => useTickets());
+
+    await waitFor(() => {
+      expect(result.current.loading).toBe(false);
+    });
+
+    act(() => {
+      result.current.setSearch("login");
+    });
+
+    expect(
+      result.current.filteredTickets.every(t =>
+        t.title.toLowerCase().includes("login")
+      )
+    ).toBe(true);
+  });
+
+  it("returns all tickets when search is empty", async () => {
+    const { result } = renderHook(() => useTickets());
+
+    await waitFor(() => {
+      expect(result.current.loading).toBe(false);
+    });
+
+    expect(
+      result.current.filteredTickets.length
+    ).toBe(result.current.tickets.length);
   });
 });
