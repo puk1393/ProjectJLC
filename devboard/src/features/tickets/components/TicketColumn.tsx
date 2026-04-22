@@ -1,13 +1,13 @@
 'use client'; // Necesario porque este componente renderiza hijos que usan hooks de React y componentes interactivos
 
 import React, { FC } from "react";
-import type { Ticket } from "@/features/tickets";
+import type { Ticket, TicketStatus } from "@/features/tickets";
 import { TicketCard } from "@/features/tickets";
 
 interface TicketColumnProps {
   title: string;
   tickets: Ticket[];
-  changeStatus: (id: string, status: string) => void;
+  changeStatus: (id: string, status: TicketStatus) => void;
 }
 
 const TicketColumnComponent: FC<TicketColumnProps> = ({ title, tickets, changeStatus }) => {

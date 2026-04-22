@@ -2,9 +2,11 @@ import { TicketColumn } from "@/features/tickets";
 import type { GroupedTickets } from "@/features/tickets";
 import { memo } from "react";
 
+import type { TicketStatus } from "@/features/tickets";
+
 interface TicketListProps {  
   grouped: GroupedTickets;
-  changeStatus: (id: string, status: string) => void;
+  changeStatus: (id: string, status: TicketStatus) => void;
 }
 
 const TicketListPresentation = memo(function TicketListPresentation({ grouped, changeStatus }: TicketListProps) {

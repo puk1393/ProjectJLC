@@ -3,11 +3,11 @@
 import React, { FC } from "react";
 import { Card } from "@/shared/ui/molecules";
 import { Badge } from "@/shared/ui/atoms";
-import type { Ticket } from "@/features/tickets";
+import type { Ticket, TicketStatus } from "@/features/tickets";
 
 interface TicketCardProps {
   ticket: Ticket;
-  changeStatus: (id: string, status: string) => void;
+  changeStatus: (id: string, status: TicketStatus) => void;
 }
 
 const priorityVariantMap = {
@@ -25,10 +25,10 @@ const statusOptions = [
 ];
 
 const TicketCardComponent: FC<TicketCardProps> = ({ ticket, changeStatus }) => {
-  const [selectedStatus, setSelectedStatus] = React.useState(ticket.status ?? "backlog");
+  const [selectedStatus, setSelectedStatus] = React.useState<TicketStatus>(ticket.status ?? "backlog");
 
   const handleStatusChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
-    const newStatus = e.target.value;
+    const newStatus = e.target.value as TicketStatus;
     setSelectedStatus(newStatus);
     if (newStatus !== ticket.status) {
       changeStatus(ticket.id, newStatus);
