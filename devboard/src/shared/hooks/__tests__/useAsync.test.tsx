@@ -4,7 +4,7 @@ import { describe, it, expect } from "vitest";
 import { useAsync } from "../useAsync";
 
 describe("useAsync", () => {
-  it("loads data successfully", async () => {
+  it("carga los datos exitosamente", async () => {
     const { result } = renderHook(() =>
       useAsync(async () => {
         return "Datos cargados";
@@ -21,7 +21,7 @@ describe("useAsync", () => {
     expect(result.current.error).toBe(null);
   });
 
-  it("handles error correctly", async () => {
+  it("maneja el error correctamente", async () => {
     const { result } = renderHook(() =>
       useAsync(async () => {
         throw new Error("Falló");

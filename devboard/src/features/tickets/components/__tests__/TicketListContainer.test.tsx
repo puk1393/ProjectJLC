@@ -15,7 +15,7 @@ vi.mock("@/features/tickets", async () => {
 });
 
 describe("TicketListContainer", () => {
-  it("shows loading fallback", async () => {
+  it("muestra el mensaje de carga", async () => {
     mockUseTickets.mockReturnValue({
       filteredTickets: [],
       setSearch: vi.fn(),
@@ -34,7 +34,7 @@ describe("TicketListContainer", () => {
     ).toBeInTheDocument();
   });
 
-  it("shows error message", () => {
+  it("muestra el mensaje de error", () => {
     mockUseTickets.mockReturnValue({
       filteredTickets: [],
       setSearch: vi.fn(),
@@ -53,7 +53,7 @@ describe("TicketListContainer", () => {
     ).toBeInTheDocument();
   });
 
-  it("renders ticket list", async () => {
+  it("renderiza la lista de tickets", async () => {
     mockUseTickets.mockReturnValue({
       filteredTickets: [
         {

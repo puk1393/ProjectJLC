@@ -1,5 +1,7 @@
 # ProjectJLC
 Proyecto de react avanzado en Cenfotec BCR
+
+## Instrucciones de Instalación
 1) Clonar el repositorio:
     git clone https://github.com/puk1393/ProjectJLC.git
 2) Ingresar a la carpeta del proyecto:
@@ -11,16 +13,36 @@ Proyecto de react avanzado en Cenfotec BCR
 5) Ejecutar la aplicación:
     npm run dev
 6) Abrir en el navegador:
-    La terminal mostrará una URL similar a: http://localhost:5173/
+    La terminal mostrará una URL similar a: http://localhost:3000/
     Abrir esa dirección en el navegador.
+    
+## Decisiones de arquitectura
+- **Separación de lógica y presentación:**
+    - Los componentes de presentación (UI) no contienen lógica de negocio, solo reciben props y renderizan. La lógica de manipulación de datos y estado está en hooks personalizados y contextos.
 
-Notas: 
+- **Custom Hooks reutilizables:**
+    - Se crearon hooks como `useTickets`, `useDebounce`, `useLocalStorage` y `useFilters` para encapsular lógica reutilizable y desacoplar la UI de la lógica de negocio.
+
+- **Testing y cobertura:**
+    - Se implementaron pruebas unitarias para hooks, lógica de filtrado y componentes clave, asegurando robustez y facilitando el refactor.
+- **Feature-based y Atomic Design:**
+    - La estructura del proyecto sigue un enfoque por features y atomic design para máxima escalabilidad y mantenibilidad.
+- **Uso de React.memo:**
+    - Se memoizaron componentes como `ProjectListPresentation`, `TicketListPresentation`, `Badge` y `Button` para evitar renders innecesarios.
+    - **¿Por qué?** Estos componentes reciben props que cambian poco y pueden renderizar grandes listas o elementos atómicos muchas veces. Memoizarlos mejora el rendimiento y la experiencia de usuario.
+    - En componentes atómicos como `Badge` y `Button`, el memoizado es seguro y efectivo porque sus props suelen ser primitivas.
+- **Persistencia y filtros:**
+    - Los tickets se persisten en localStorage y el filtrado es centralizado, usando hooks personalizados y contextos.
+- **Transición Kanban:**
+    - El cambio de estado de los tickets sigue el patrón Kanban y está cubierto por pruebas unitarias.
+
+## Notas: 
 1) Asegúrese de tener instalado Node.js
 2) La aplicación corre completamente en el cliente (sin backend)
 3) Observar donde le crea la carpeta para su posterior eliminación
 4) Ahora es un proyecto Next.js
 
-Autor:
+## Autor:
 Jeremy Lewis Castillo
 
 ## Uso de React.memo en ProjectListPresentation y TicketListPresentation
@@ -40,3 +62,11 @@ Los componentes `Badge` y `Button` también utilizan `React.memo` porque:
 
 En resumen, `React.memo` en componentes atómicos garantiza una UI más eficiente y reactiva, siguiendo las mejores prácticas de optimización en React.
 
+## Capturas de pantalla
+Proyectos:
+ ![Pantalla principal](image.png)
+ ![Pantalla de creación](image-1.png)
+Tickets: 
+![Pantalla principal](image-2.png) 
+Acerca de: 
+![Pantalla principal](image-3.png)

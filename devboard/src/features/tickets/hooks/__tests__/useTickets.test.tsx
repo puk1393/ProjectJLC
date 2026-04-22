@@ -7,7 +7,7 @@ describe("useTickets", () => {
     localStorage.clear();
   });
 
-  it("loads mock tickets", async () => {
+  it("carga los tickets mock", async () => {
     const { result } = renderHook(() => useTickets());
 
     await waitFor(() => {
@@ -18,7 +18,7 @@ describe("useTickets", () => {
     expect(result.current.error).toBe(null);
   });
 
-  it("adds a ticket", async () => {
+  it("agrega un ticket", async () => {
     const { result } = renderHook(() => useTickets());
 
     await waitFor(() => {
@@ -41,7 +41,7 @@ describe("useTickets", () => {
     ).toBe(true);
   });
 
-  it("deletes a ticket", async () => {
+  it("elimina un ticket", async () => {
     const { result } = renderHook(() => useTickets());
 
     await waitFor(() => {
@@ -59,7 +59,7 @@ describe("useTickets", () => {
     ).toBe(false);
   });
 
-  it("changes ticket status", async () => {
+  it("cambia el estado de un ticket", async () => {
     const { result } = renderHook(() => useTickets());
 
     await waitFor(() => {
@@ -79,7 +79,7 @@ describe("useTickets", () => {
     expect(updated?.status).toBe("done");
   });
 
-  it("loads tickets from localStorage if present", async () => {
+  it("carga tickets desde localStorage si existen", async () => {
     localStorage.setItem(
       "tickets",
       JSON.stringify([
@@ -104,7 +104,7 @@ describe("useTickets", () => {
     expect(result.current.tickets[0].title).toBe("Crear login");
   });
 
-  it("ignores invalid localStorage JSON", async () => {
+  it("ignora JSON inválido en localStorage", async () => {
     localStorage.setItem("tickets", "INVALID_JSON");
 
     const { result } = renderHook(() => useTickets());
@@ -116,7 +116,7 @@ describe("useTickets", () => {
     expect(result.current.tickets.length).toBeGreaterThan(0);
   });
 
-  it("returns all tickets when search is empty", async () => {
+  it("devuelve todos los tickets si la búsqueda está vacía", async () => {
     const { result } = renderHook(() => useTickets());
 
     await waitFor(() => {

@@ -30,7 +30,7 @@ describe("TicketListPresentation", () => {
     done: []
     };
 
-  it("renders columns and tickets correctly", () => {
+  it("renderiza correctamente las columnas y los tickets", () => {
     render(<TicketListPresentation grouped={grouped} />);
 
     expect(screen.getByText("BACKLOG")).toBeInTheDocument();

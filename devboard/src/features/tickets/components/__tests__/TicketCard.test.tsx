@@ -14,7 +14,7 @@ describe("TicketCard", () => {
     status: "backlog",
   };
 
-  it("renders ticket information", () => {
+  it("renderiza la información del ticket", () => {
     render(
       <TicketCard
         ticket={ticket}
@@ -28,7 +28,7 @@ describe("TicketCard", () => {
     expect(screen.getByText("Responsable: Jeremy")).toBeInTheDocument();
   });
 
-  it("shows current selected status", () => {
+  it("muestra el estado seleccionado actual", () => {
     render(
       <TicketCard
         ticket={ticket}
@@ -39,7 +39,7 @@ describe("TicketCard", () => {
     expect(screen.getByDisplayValue("Backlog")).toBeInTheDocument();
   });
 
-  it("calls changeStatus when status changes", () => {
+  it("llama a changeStatus cuando el estado cambia", () => {
     const changeStatus = vi.fn();
 
     render(
@@ -59,7 +59,7 @@ describe("TicketCard", () => {
     );
   });
 
-  it("does not call changeStatus when same status selected", () => {
+  it("no llama a changeStatus si se selecciona el mismo estado", () => {
     const changeStatus = vi.fn();
 
     render(
