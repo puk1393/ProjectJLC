@@ -4,8 +4,7 @@ import {
   useTickets,
   getTicketsByProjectId,
   getGroupTicketsByStatus,
-  filterByPriority,
-  filterByResponsible,
+  filterByPriority
 } from "@/features/tickets";
 
 import { useDebounce } from "@/shared/hooks/useDebounce";

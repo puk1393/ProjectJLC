@@ -6,26 +6,36 @@ export function useLocalStorage<T>(
   key: string,
   initialValue: T
 ) {
-  const [value, setValue] = useState<T>(initialValue);
-
-  useEffect(() => {
+  const [value, setValue] = useState<T>(() => {
     try {
       const stored = localStorage.getItem(key);
 
       if (stored) {
-        const parsed = JSON.parse(stored);
-        setValue(parsed);
+        return JSON.parse(stored) as T;
       }
+
+      return initialValue;
     } catch (error) {
-      console.warn(`Error reading localStorage key "${key}"`, error);
+      console.warn(
+        `Error reading localStorage key "${key}"`,
+        error
+      );
+
+      return initialValue;
     }
-  }, [key]);
+  });
 
   useEffect(() => {
     try {
-      localStorage.setItem(key, JSON.stringify(value));
+      localStorage.setItem(
+        key,
+        JSON.stringify(value)
+      );
     } catch (error) {
-      console.warn(`Error writing localStorage key "${key}"`, error);
+      console.warn(
+        `Error writing localStorage key "${key}"`,
+        error
+      );
     }
   }, [key, value]);
 
