@@ -17,6 +17,9 @@ Proyecto de react avanzado en Cenfotec BCR
     Abrir esa dirección en el navegador.
     
 ## Decisiones de arquitectura
+
+- **Pruebas end-to-end (e2e):**
+    - Se realizaron pruebas e2e con Playwright para validar el flujo completo de la aplicación y asegurar la calidad en escenarios reales de usuario.
 - **Separación de lógica y presentación:**
     - Los componentes de presentación (UI) no contienen lógica de negocio, solo reciben props y renderizan. La lógica de manipulación de datos y estado está en hooks personalizados y contextos.
 
