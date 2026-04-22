@@ -1,4 +1,4 @@
-'use client';
+'use client'; /* Este hook es cliente porque utiliza useReducer, useEffect y otros hooks de React para manejar estado y efectos secundarios. Además, se espera que sea utilizado dentro de componentes cliente que renderizan la UI. */
 
 import {
   useCallback,

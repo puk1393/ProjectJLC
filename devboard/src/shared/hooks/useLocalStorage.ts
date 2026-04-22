@@ -1,4 +1,4 @@
-'use client';
+'use client'; /* Este hook es cliente porque utiliza useEffect, useState y accede a localStorage, que son APIs del navegador. Además, se espera que sea utilizado dentro de componentes cliente que renderizan la UI. */
 
 import { useEffect, useState } from "react";
 

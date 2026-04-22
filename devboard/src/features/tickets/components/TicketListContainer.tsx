@@ -1,4 +1,4 @@
-'use client';
+'use client'; /* Este componente es cliente porque utiliza hooks de React y renderiza componentes interactivos */
 
 import {
   useTickets,

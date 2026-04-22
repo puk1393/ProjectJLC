@@ -1,4 +1,4 @@
-'use client';
+'use client'; /* Este layout es un componente cliente porque renderiza hijos que pueden ser clientes o servidores, y no sabemos cuál será el caso. */
 
 import type { ReactNode } from "react";
 

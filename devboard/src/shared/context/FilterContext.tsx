@@ -1,4 +1,4 @@
-'use client';
+'use client'; /* Este contexto es cliente porque maneja estado local con useState y se espera que sea utilizado dentro de componentes cliente que renderizan la UI. */
 
 import {
   createContext,

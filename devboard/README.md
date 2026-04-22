@@ -22,3 +22,21 @@ Notas:
 
 Autor:
 Jeremy Lewis Castillo
+
+## Uso de React.memo en ProjectListPresentation y TicketListPresentation
+Ambos componentes utilizan `React.memo` para evitar renders innecesarios cuando sus props no han cambiado. Esto es especialmente útil porque:
+- Renderizan listas potencialmente grandes de proyectos o tickets.
+- Sus props suelen ser objetos derivados de filtros o estados globales, que solo cambian cuando realmente hay una actualización relevante.
+- Al usar `React.memo`, se mejora el rendimiento y la experiencia de usuario, ya que solo se vuelven a renderizar cuando los datos realmente cambian, evitando renders costosos por cambios en otros estados del árbol de componentes.
+
+Esto sigue la mejor práctica de optimización en componentes de presentación que reciben datos por props y no dependen de estados internos.
+
+## Uso de React.memo en Badge y Button
+Los componentes `Badge` y `Button` también utilizan `React.memo` porque:
+- Son componentes atómicos reutilizables que pueden ser renderizados muchas veces en listas, tablas o formularios.
+- Sus props suelen ser primitivas (texto, color, onClick, etc.), por lo que el memoizado es muy efectivo y seguro.
+- Al usar `React.memo`, se evita que estos componentes se vuelvan a renderizar cuando sus props no cambian, incluso si el componente padre se actualiza por otros motivos.
+- Esto mejora el rendimiento global de la aplicación, especialmente en interfaces con muchos botones o badges dinámicos.
+
+En resumen, `React.memo` en componentes atómicos garantiza una UI más eficiente y reactiva, siguiendo las mejores prácticas de optimización en React.
+
